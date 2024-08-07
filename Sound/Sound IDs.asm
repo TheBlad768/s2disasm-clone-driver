@@ -40,11 +40,6 @@ MusID_Emerald =			SMPS_id(ptr_mus9D)	; 1D
 MusID_Credits =			SMPS_id(ptr_mus9E)	; 1E
 MusID_Countdown =		SMPS_id(ptr_mus9F)	; 1F
 MusID__End =			SMPS_id(ptr_musend)	; 20
-    if MOMPASS == 2
-	if MusID__End > SndID__First
-		fatal "You have too many MusPtrs. MusID__End ($\{MusID__End}) can't exceed SndID__First ($\{SndID__First})."
-	endif
-    endif
 
 ; Sound IDs
 offset :=       SoundIndex
@@ -148,7 +143,11 @@ MusID_SpeedUp =			SMPS_id(ptr_flgFD)	; FD
 MusID_SlowDown =		SMPS_id(ptr_flgFE)	; FE
 MusID_Stop =			SMPS_id(ptr_flgFF)	; FF
 FlgID__End =			SMPS_id(ptr_flgend)	; FF + 1 (rollover)
-    if MOMPASS == 2
+
+    if MOMPASS > 1 ; Avoid undefined symbol errors by checking only after the first pass.
+	if MusID__End > SndID__First
+		fatal "You have too many MusPtrs. MusID__End ($\{MusID__End}) can't exceed SndID__First ($\{SndID__First})."
+	endif
 	if SndID__End > FlgID__First
 		fatal "You have too many SndPtrs. SndID__End ($\{SndID__End}) can't exceed FlgID__First ($\{FlgID__First})."
 	endif

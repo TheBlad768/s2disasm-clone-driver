@@ -21,12 +21,12 @@
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/Sonic.bin",
+                        "path": "mappings/sprite/Sonic.asm",
                         "label": ""
                     },
                     "dplcs": {
                         "enabled": true,
-                        "path": "mappings/spriteDPLC/Sonic.bin",
+                        "path": "mappings/spriteDPLC/Sonic.asm",
                         "label": ""
                     },
                     "uuid": "dad6e825-1660-4429-93f6-dd09b880aa01"
@@ -37,17 +37,17 @@
                     "name": "Sonic (special)",
                     "palettes": [],
                     "art": {
-                        "path": "art/nemesis/Sonic and Tails animation frames in special stage.bin",
+                        "path": "art/nemesis/Sonic and Tails animation frames in special stage.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj09.bin",
+                        "path": "mappings/sprite/obj09.asm",
                         "label": ""
                     },
                     "dplcs": {
                         "enabled": true,
-                        "path": "mappings/spriteDPLC/obj09.bin",
+                        "path": "mappings/spriteDPLC/obj09.asm",
                         "label": ""
                     },
                     "expanded": true
@@ -67,13 +67,13 @@
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/Tails.bin",
+                        "path": "mappings/sprite/Tails.asm",
                         "format": "Sonic 2",
                         "customDefinition": ""
                     },
                     "dplcs": {
                         "enabled": true,
-                        "path": "mappings/spriteDPLC/Tails.bin",
+                        "path": "mappings/spriteDPLC/Tails.asm",
                         "format": "Sonic 2/3&K",
                         "customDefinition": ""
                     },
@@ -93,12 +93,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Ring.bin",
+                        "path": "art/nemesis/Ring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj37_a.bin",
+                        "path": "mappings/sprite/obj37_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -123,7 +123,7 @@
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj03.bin",
+                        "path": "mappings/sprite/obj03.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -143,12 +143,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Signpost.bin",
+                        "path": "art/nemesis/Signpost.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj0D_a.bin",
+                        "path": "mappings/sprite/obj0D_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -168,12 +168,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Monitor and contents.bin",
+                        "path": "art/nemesis/Monitor and contents.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj26.bin",
+                        "path": "mappings/sprite/obj26.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -193,12 +193,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Monitor and contents.bin",
+                        "path": "art/nemesis/Monitor and contents.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj31_b.bin",
+                        "path": "mappings/sprite/obj31_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -218,12 +218,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Spikes.bin",
+                        "path": "art/nemesis/Spikes.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj36.bin",
+                        "path": "mappings/sprite/obj36.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -243,12 +243,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Egg Prison.bin",
+                        "path": "art/nemesis/Egg Prison.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj3E.bin",
+                        "path": "mappings/sprite/obj3E.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -268,7 +268,7 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Vertical spring.bin",
+                        "path": "art/nemesis/Vertical spring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
@@ -293,12 +293,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Monitor and contents.bin",
+                        "path": "art/nemesis/Monitor and contents.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj74.bin",
+                        "path": "mappings/sprite/obj74.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -318,12 +318,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Star pole.bin",
+                        "path": "art/nemesis/Star pole.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj79_a.bin",
+                        "path": "mappings/sprite/obj79_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -355,12 +355,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/ARZ.bin",
+                        "path": "art/kosinski/ARZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj83.bin",
+                        "path": "mappings/sprite/obj83.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -384,12 +384,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/ARZ.bin",
+                        "path": "art/kosinski/ARZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj18_b.bin",
+                        "path": "mappings/sprite/obj18_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -418,7 +418,7 @@
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1F_d.bin",
+                        "path": "mappings/sprite/obj1F_d.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -442,12 +442,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Arrow shooter and arrow from ARZ.bin",
+                        "path": "art/nemesis/Arrow shooter and arrow from ARZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj22.bin",
+                        "path": "mappings/sprite/obj22.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -471,12 +471,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/kosinski/ARZ.bin",
+                        "path": "art/kosinski/ARZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj23.bin",
+                        "path": "mappings/sprite/obj23.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -500,7 +500,7 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Bubble generator.bin",
+                        "path": "art/nemesis/Bubble generator.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
@@ -529,12 +529,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/kosinski/ARZ.bin",
+                        "path": "art/kosinski/ARZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj2B.bin",
+                        "path": "mappings/sprite/obj2B.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -558,12 +558,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Monitor and contents.bin",
+                        "path": "art/nemesis/Monitor and contents.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj31_b.bin",
+                        "path": "mappings/sprite/obj31_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -587,12 +587,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/One way barrier from ARZ.bin",
+                        "path": "art/nemesis/One way barrier from ARZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj2D.bin",
+                        "path": "mappings/sprite/obj2D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -616,12 +616,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Lever spring.bin",
+                        "path": "art/nemesis/Lever spring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj40.bin",
+                        "path": "mappings/sprite/obj40.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -645,12 +645,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/ARZ.bin",
+                        "path": "art/kosinski/ARZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj82.bin",
+                        "path": "mappings/sprite/obj82.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -674,12 +674,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/ARZ.bin",
+                        "path": "art/kosinski/ARZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj83.bin",
+                        "path": "mappings/sprite/obj83.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -703,12 +703,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Blowfly from ARZ.bin",
+                        "path": "art/nemesis/Blowfly from ARZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj8C.bin",
+                        "path": "mappings/sprite/obj8C.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -732,7 +732,7 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Grounder from ARZ.bin",
+                        "path": "art/nemesis/Grounder from ARZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
@@ -761,7 +761,7 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Grounder from ARZ.bin",
+                        "path": "art/nemesis/Grounder from ARZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
@@ -790,12 +790,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Shark from ARZ.bin",
+                        "path": "art/nemesis/Shark from ARZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj91.bin",
+                        "path": "mappings/sprite/obj91.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -827,12 +827,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Collapsing platform from MCZ.bin",
+                        "path": "art/nemesis/Collapsing platform from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1F_c.bin",
+                        "path": "mappings/sprite/obj1F_c.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -856,12 +856,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/kosinski/MCZ.bin",
+                        "path": "art/kosinski/MCZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj2A.bin",
+                        "path": "mappings/sprite/obj2A.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -885,12 +885,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Lever spring.bin",
+                        "path": "art/nemesis/Lever spring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj40.bin",
+                        "path": "mappings/sprite/obj40.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -914,12 +914,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Large wooden box from MCZ.bin",
+                        "path": "art/nemesis/Large wooden box from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj6A.bin",
+                        "path": "mappings/sprite/obj6A.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -943,12 +943,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MCZ.bin",
+                        "path": "art/kosinski/MCZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj75.bin",
+                        "path": "mappings/sprite/obj75.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -972,12 +972,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MCZ.bin",
+                        "path": "art/kosinski/MCZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj76.bin",
+                        "path": "mappings/sprite/obj76.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1001,12 +1001,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Drawbridge logs from MCZ.bin",
+                        "path": "art/nemesis/Drawbridge logs from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj77.bin",
+                        "path": "mappings/sprite/obj77.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1030,12 +1030,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Pull switch from MCZ.bin",
+                        "path": "art/nemesis/Pull switch from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj7F.bin",
+                        "path": "mappings/sprite/obj7F.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1059,12 +1059,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Vine that lowers from MCZ.bin",
+                        "path": "art/nemesis/Vine that lowers from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj80_a.bin",
+                        "path": "mappings/sprite/obj80_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1088,12 +1088,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Drawbridge logs from MCZ.bin",
+                        "path": "art/nemesis/Drawbridge logs from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj81.bin",
+                        "path": "mappings/sprite/obj81.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1117,12 +1117,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Snake badnik from MCZ.bin",
+                        "path": "art/nemesis/Snake badnik from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj9E.bin",
+                        "path": "mappings/sprite/obj9E.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1146,12 +1146,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Firefly from MCZ.bin",
+                        "path": "art/nemesis/Firefly from MCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objA3.bin",
+                        "path": "mappings/sprite/objA3.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1183,12 +1183,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Round bumper from CNZ.bin",
+                        "path": "art/nemesis/Round bumper from CNZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj44.bin",
+                        "path": "mappings/sprite/obj44.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1212,12 +1212,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Ring.bin",
+                        "path": "art/nemesis/Ring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj03.bin",
+                        "path": "mappings/sprite/obj03.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1241,12 +1241,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Vertical impulse spring.bin",
+                        "path": "art/nemesis/Vertical impulse spring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj85_a.bin",
+                        "path": "mappings/sprite/obj85_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1270,12 +1270,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Flippers.bin",
+                        "path": "art/nemesis/Flippers.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj86.bin",
+                        "path": "mappings/sprite/obj86.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1299,12 +1299,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Bouncer badnik from CNZ.bin",
+                        "path": "art/nemesis/Bouncer badnik from CNZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC8.bin",
+                        "path": "mappings/sprite/objC8.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1328,12 +1328,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Caterpiller platforms from CNZ.bin",
+                        "path": "art/nemesis/Caterpiller platforms from CNZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objD2.bin",
+                        "path": "mappings/sprite/objD2.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1357,12 +1357,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Moving block from CNZ and CPZ.bin",
+                        "path": "art/nemesis/Moving block from CNZ and CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objD4.bin",
+                        "path": "mappings/sprite/objD4.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1386,12 +1386,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/CNZ elevator.bin",
+                        "path": "art/nemesis/CNZ elevator.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objD5.bin",
+                        "path": "mappings/sprite/objD5.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1415,12 +1415,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/CNZ slot machine bars.bin",
+                        "path": "art/nemesis/CNZ slot machine bars.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objD6_b.bin",
+                        "path": "mappings/sprite/objD6_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1444,12 +1444,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Hexagonal bumper from CNZ.bin",
+                        "path": "art/nemesis/Hexagonal bumper from CNZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objD7.bin",
+                        "path": "mappings/sprite/objD7.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1473,12 +1473,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Drop target from CNZ.bin",
+                        "path": "art/nemesis/Drop target from CNZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objD8.bin",
+                        "path": "mappings/sprite/objD8.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1510,12 +1510,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Bolt end and rope from MTZ.bin",
+                        "path": "art/nemesis/Bolt end and rope from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1C_e.bin",
+                        "path": "mappings/sprite/obj1C_e.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1539,12 +1539,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MTZ.bin",
+                        "path": "art/kosinski/MTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj2D.bin",
+                        "path": "mappings/sprite/obj2D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1568,12 +1568,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MTZ.bin",
+                        "path": "art/kosinski/MTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj42.bin",
+                        "path": "mappings/sprite/obj42.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1597,12 +1597,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Button.bin",
+                        "path": "art/nemesis/Button.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj47.bin",
+                        "path": "mappings/sprite/obj47.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1626,12 +1626,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MTZ.bin",
+                        "path": "art/kosinski/MTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj64.bin",
+                        "path": "mappings/sprite/obj64.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1655,12 +1655,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MTZ.bin",
+                        "path": "art/kosinski/MTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj65_a.bin",
+                        "path": "mappings/sprite/obj65_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1684,12 +1684,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Monitor and contents.bin",
+                        "path": "art/nemesis/Monitor and contents.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj66.bin",
+                        "path": "mappings/sprite/obj66.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1713,12 +1713,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/MTZ spike block.bin",
+                        "path": "art/nemesis/MTZ spike block.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj68.bin",
+                        "path": "mappings/sprite/obj68.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1742,12 +1742,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Similarly shaded blocks from MTZ.bin",
+                        "path": "art/nemesis/Similarly shaded blocks from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj69.bin",
+                        "path": "mappings/sprite/obj69.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1771,12 +1771,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/kosinski/MTZ.bin",
+                        "path": "art/kosinski/MTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj65_a.bin",
+                        "path": "mappings/sprite/obj65_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1800,12 +1800,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Lava cup from MTZ.bin",
+                        "path": "art/nemesis/Lava cup from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj6C.bin",
+                        "path": "mappings/sprite/obj6C.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1829,12 +1829,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Spike from MTZ.bin",
+                        "path": "art/nemesis/Spike from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj68.bin",
+                        "path": "mappings/sprite/obj68.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1858,12 +1858,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/MTZ.bin",
+                        "path": "art/kosinski/MTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj6E.bin",
+                        "path": "mappings/sprite/obj6E.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1887,12 +1887,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Large spinning wheel from MTZ.bin",
+                        "path": "art/nemesis/Large spinning wheel from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj70.bin",
+                        "path": "mappings/sprite/obj70.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1916,12 +1916,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Lava bubble from MTZ.bin",
+                        "path": "art/nemesis/Lava bubble from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj71_b.bin",
+                        "path": "mappings/sprite/obj71_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1945,12 +1945,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Shellcracker badnik from MTZ.bin",
+                        "path": "art/nemesis/Shellcracker badnik from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objA0.bin",
+                        "path": "mappings/sprite/objA0.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -1974,12 +1974,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Praying mantis badnik from MTZ.bin",
+                        "path": "art/nemesis/Praying mantis badnik from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objA2.bin",
+                        "path": "mappings/sprite/objA2.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2003,12 +2003,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Exploding star badnik from MTZ.bin",
+                        "path": "art/nemesis/Exploding star badnik from MTZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objA4.bin",
+                        "path": "mappings/sprite/objA4.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2040,12 +2040,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Small yellow moving platform from CPZ.bin",
+                        "path": "art/nemesis/Small yellow moving platform from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj0B.bin",
+                        "path": "mappings/sprite/obj0B.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2069,12 +2069,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Large moving platform from CNZ.bin",
+                        "path": "art/nemesis/Large moving platform from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj19.bin",
+                        "path": "mappings/sprite/obj19.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2098,12 +2098,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Speed booster from CPZ.bin",
+                        "path": "art/nemesis/Speed booster from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1B.bin",
+                        "path": "mappings/sprite/obj1B.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2127,12 +2127,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/CPZ worm enemy.bin",
+                        "path": "art/nemesis/CPZ worm enemy.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1D.bin",
+                        "path": "mappings/sprite/obj1D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2156,12 +2156,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Stripy blocks from CPZ.bin",
+                        "path": "art/nemesis/Stripy blocks from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj2D.bin",
+                        "path": "mappings/sprite/obj2D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2185,12 +2185,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/CPZ large moving platform blocks.bin",
+                        "path": "art/nemesis/CPZ large moving platform blocks.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj32_b.bin",
+                        "path": "mappings/sprite/obj32_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2214,12 +2214,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Lever spring.bin",
+                        "path": "art/nemesis/Lever spring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj40.bin",
+                        "path": "mappings/sprite/obj40.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2243,12 +2243,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Moving block from CPZ.bin",
+                        "path": "art/nemesis/Moving block from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj6B.bin",
+                        "path": "mappings/sprite/obj6B.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2272,12 +2272,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Moving block from CPZ.bin",
+                        "path": "art/nemesis/Moving block from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj7A.bin",
+                        "path": "mappings/sprite/obj7A.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2301,12 +2301,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/CPZ spintube exit cover.bin",
+                        "path": "art/nemesis/CPZ spintube exit cover.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj7B.bin",
+                        "path": "mappings/sprite/obj7B.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2330,12 +2330,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Weird crawling badnik from CPZ.bin",
+                        "path": "art/nemesis/Weird crawling badnik from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objA6.bin",
+                        "path": "mappings/sprite/objA6.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2359,12 +2359,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Weird crawling badnik from CPZ.bin",
+                        "path": "art/nemesis/Weird crawling badnik from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objA6.bin",
+                        "path": "mappings/sprite/objA6.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2388,7 +2388,7 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Spider badnik from CPZ.bin",
+                        "path": "art/nemesis/Spider badnik from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
@@ -2425,12 +2425,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Swinging platform from OOZ.bin",
+                        "path": "art/nemesis/Swinging platform from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj15_a.bin",
+                        "path": "mappings/sprite/obj15_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2454,12 +2454,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Rising platform from OOZ.bin",
+                        "path": "art/nemesis/Rising platform from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj19.bin",
+                        "path": "mappings/sprite/obj19.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2483,12 +2483,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Cascading oil from OOZ.bin",
+                        "path": "art/nemesis/Cascading oil from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1C_c.bin",
+                        "path": "mappings/sprite/obj1C_c.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2512,12 +2512,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/OOZ collapsing platform.bin",
+                        "path": "art/nemesis/OOZ collapsing platform.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj1F_b.bin",
+                        "path": "mappings/sprite/obj1F_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2541,12 +2541,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Burner Platform from OOZ.bin",
+                        "path": "art/nemesis/Burner Platform from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj33_a.bin",
+                        "path": "mappings/sprite/obj33_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2570,12 +2570,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Striped blocks from CPZ.bin",
+                        "path": "art/nemesis/Striped blocks from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj3D.bin",
+                        "path": "mappings/sprite/obj3D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2599,12 +2599,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Fan from OOZ.bin",
+                        "path": "art/nemesis/Fan from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj3F_a.bin",
+                        "path": "mappings/sprite/obj3F_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2628,12 +2628,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Spiked ball from OOZ.bin",
+                        "path": "art/nemesis/Spiked ball from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj43.bin",
+                        "path": "mappings/sprite/obj43.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2657,12 +2657,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Push spring from OOZ.bin",
+                        "path": "art/nemesis/Push spring from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj45.bin",
+                        "path": "mappings/sprite/obj45.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2686,12 +2686,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Transporter ball from OOZ.bin",
+                        "path": "art/nemesis/Transporter ball from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj48.bin",
+                        "path": "mappings/sprite/obj48.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2715,12 +2715,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Octopus badnik from OOZ.bin",
+                        "path": "art/nemesis/Octopus badnik from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj4A.bin",
+                        "path": "mappings/sprite/obj4A.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2744,12 +2744,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Seahorse from OOZ.bin",
+                        "path": "art/nemesis/Seahorse from OOZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj50.bin",
+                        "path": "mappings/sprite/obj50.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2781,12 +2781,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Stripy blocks from CPZ.bin",
+                        "path": "art/nemesis/Stripy blocks from CPZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj2D.bin",
+                        "path": "mappings/sprite/obj2D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2810,12 +2810,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Robotnik's head.bin:40960",
+                        "path": "art/nemesis/Robotnik's head.nem:40960",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC6_a.bin",
+                        "path": "mappings/sprite/objC6_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2839,12 +2839,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Eggrobo.bin",
+                        "path": "art/nemesis/Eggrobo.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC7.bin",
+                        "path": "mappings/sprite/objC7.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2876,12 +2876,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Bomber badnik from SCZ.bin",
+                        "path": "art/nemesis/Bomber badnik from SCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj99.bin",
+                        "path": "mappings/sprite/obj99.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2905,12 +2905,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Turtle badnik from SCZ.bin",
+                        "path": "art/nemesis/Turtle badnik from SCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj9C.bin",
+                        "path": "mappings/sprite/obj9C.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2934,12 +2934,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Balkrie (jet badnik) from SCZ.bin",
+                        "path": "art/nemesis/Balkrie (jet badnik) from SCZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objAC.bin",
+                        "path": "mappings/sprite/objAC.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2963,12 +2963,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/The Tornado.bin",
+                        "path": "art/nemesis/The Tornado.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB2_a.bin",
+                        "path": "mappings/sprite/objB2_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -2992,12 +2992,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Clouds.bin",
+                        "path": "art/nemesis/Clouds.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB3.bin",
+                        "path": "mappings/sprite/objB3.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3021,12 +3021,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Vertical spinning blades in WFZ.bin",
+                        "path": "art/nemesis/Vertical spinning blades in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB4.bin",
+                        "path": "mappings/sprite/objB4.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3050,12 +3050,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Horizontal spinning blades in WFZ.bin",
+                        "path": "art/nemesis/Horizontal spinning blades in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB5.bin",
+                        "path": "mappings/sprite/objB5.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3087,12 +3087,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/EHZ bridge.bin",
+                        "path": "art/nemesis/EHZ bridge.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj11_b.bin",
+                        "path": "mappings/sprite/obj11_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3116,12 +3116,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/kosinski/EHZ_HTZ.bin",
+                        "path": "art/kosinski/EHZ_HTZ.kos",
                         "compression": "Kosinski",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj18_a.bin",
+                        "path": "mappings/sprite/obj18_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3145,12 +3145,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/EHZ bridge.bin",
+                        "path": "art/nemesis/EHZ bridge.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj11_b.bin",
+                        "path": "mappings/sprite/obj11_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3174,12 +3174,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Waterfall tiles.bin",
+                        "path": "art/nemesis/Waterfall tiles.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj49.bin",
+                        "path": "mappings/sprite/obj49.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3203,12 +3203,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Buzzer enemy.bin",
+                        "path": "art/nemesis/Buzzer enemy.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj4B.bin",
+                        "path": "mappings/sprite/obj4B.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3232,12 +3232,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/EHZ Pirahna badnik.bin",
+                        "path": "art/nemesis/EHZ Pirahna badnik.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj5C.bin",
+                        "path": "mappings/sprite/obj5C.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3261,12 +3261,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Coconuts badnik from EHZ.bin",
+                        "path": "art/nemesis/Coconuts badnik from EHZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj9D.bin",
+                        "path": "mappings/sprite/obj9D.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3298,12 +3298,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Moving platform from WFZ.bin",
+                        "path": "art/nemesis/Moving platform from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj19.bin",
+                        "path": "mappings/sprite/obj19.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3327,12 +3327,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Hook on chain from WFZ.bin",
+                        "path": "art/nemesis/Hook on chain from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj80_b.bin",
+                        "path": "mappings/sprite/obj80_b.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3356,12 +3356,12 @@
                         }
                     ],
                     "art": {
-                        "path": "art/nemesis/Ring.bin",
+                        "path": "art/nemesis/Ring.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/obj03.bin",
+                        "path": "mappings/sprite/obj03.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3385,12 +3385,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Scratch from WFZ.bin",
+                        "path": "art/nemesis/Scratch from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objAE.bin",
+                        "path": "mappings/sprite/objAE.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3414,12 +3414,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/The Tornado.bin",
+                        "path": "art/nemesis/The Tornado.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB2_a.bin",
+                        "path": "mappings/sprite/objB2_a.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3443,12 +3443,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Vertical spinning blades in WFZ.bin",
+                        "path": "art/nemesis/Vertical spinning blades in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB4.bin",
+                        "path": "mappings/sprite/objB4.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3472,12 +3472,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Horizontal spinning blades in WFZ.bin",
+                        "path": "art/nemesis/Horizontal spinning blades in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB5.bin",
+                        "path": "mappings/sprite/objB5.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3501,12 +3501,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Tilting plaforms in WFZ.bin",
+                        "path": "art/nemesis/Tilting plaforms in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB6.bin",
+                        "path": "mappings/sprite/objB6.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3530,12 +3530,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Wall turret from WFZ.bin",
+                        "path": "art/nemesis/Wall turret from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB8.bin",
+                        "path": "mappings/sprite/objB8.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3559,12 +3559,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Red horizontal laser from WFZ.bin",
+                        "path": "art/nemesis/Red horizontal laser from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objB9.bin",
+                        "path": "mappings/sprite/objB9.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3588,12 +3588,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Wheel for belt in WFZ.bin",
+                        "path": "art/nemesis/Wheel for belt in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objBA.bin",
+                        "path": "mappings/sprite/objBA.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3617,12 +3617,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Thrust from Robotnik's getaway ship in WFZ.bin",
+                        "path": "art/nemesis/Thrust from Robotnik's getaway ship in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objBC.bin",
+                        "path": "mappings/sprite/objBC.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3646,12 +3646,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Platform on belt in WFZ.bin",
+                        "path": "art/nemesis/Platform on belt in WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objBD.bin",
+                        "path": "mappings/sprite/objBD.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3675,12 +3675,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Retracting platform from WFZ.bin",
+                        "path": "art/nemesis/Retracting platform from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objBE.bin",
+                        "path": "mappings/sprite/objBE.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3704,12 +3704,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Catapult that shoots Sonic to the side from WFZ.bin",
+                        "path": "art/nemesis/Catapult that shoots Sonic to the side from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC0.bin",
+                        "path": "mappings/sprite/objC0.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3733,12 +3733,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/Breakaway panels from WFZ.bin",
+                        "path": "art/nemesis/Breakaway panels from WFZ.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC1.bin",
+                        "path": "mappings/sprite/objC1.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3762,12 +3762,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/WFZ boss chamber switch.bin",
+                        "path": "art/nemesis/WFZ boss chamber switch.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC2.bin",
+                        "path": "mappings/sprite/objC2.asm",
                         "label": ""
                     },
                     "dplcs": {
@@ -3791,12 +3791,12 @@
                     ],
                     "format": "Sonic 2.js",
                     "art": {
-                        "path": "art/nemesis/WFZ boss.bin",
+                        "path": "art/nemesis/WFZ boss.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "mappings/sprite/objC5_a.bin",
+                        "path": "mappings/sprite/objC5_a.asm",
                         "label": ""
                     },
                     "dplcs": {

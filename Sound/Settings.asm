@@ -1,7 +1,4 @@
-; ========SONIC 2 GIT EQUATES========
-
-Size_of_Mega_PCM_guess = $3F0
-Size_of_DAC_driver_guess = Size_of_Mega_PCM_guess
+; ========SONIC 1 GIT EQUATES========
 
 ; ---FLAGS---
 SMPS_RingSFXBehaviour	= 1
@@ -50,12 +47,12 @@ SMPS_Asserts	= 0
 SMPS_SoundTest	= 0
 ;	| If 1, some some extra logic for my 'sound test' homebrew is enabled.
 
-SMPS_S1DACSamples	= 0
-SMPS_S2DACSamples	= 1
-SMPS_S3DACSamples	= 0
-SMPS_SKDACSamples	= 0
+SMPS_S1DACSamples		= 0
+SMPS_S2DACSamples		= 1
+SMPS_S3DACSamples		= 0
+SMPS_SKDACSamples		= 0
 SMPS_S3DDACSamples	= 0
-SMPS_SCDACSamples	= 0
+SMPS_SCDACSamples		= 0
 
 SMPS_S1PSGEnvelopes	= 0
 SMPS_S2PSGEnvelopes	= 1
@@ -65,8 +62,9 @@ SMPS_S3DPSGEnvelopes	= 0
 SMPS_KCPSGEnvelopes	= 0
 
 ; ---DISASM-DEPENDANT VARIABLES AND FUNCTIONS---
-JmpTo_SoundDriverLoad	= SMPS_LoadDACDriver
 SoundDriverLoad		= SMPS_LoadDACDriver
+DACDriverLoad		= SMPS_LoadDACDriver
+JmpTo_SoundDriverLoad	= SMPS_LoadDACDriver
 
 PlayMusic			= SMPS_QueueSound1
     if SMPS_EnablePlaySoundLocal
@@ -75,17 +73,6 @@ PlaySoundLocal		= SMPS_QueueSound2Local
 PlaySound			= SMPS_QueueSound2
 PlaySound2			= SMPS_QueueSound2
 PlaySoundStereo		= SMPS_QueueSound2
+Play_Sample			= SMPS_PlayDACSample
 
 Clone_Driver_RAM	= (-(v_snddriver_ram&$80000000)<<1)|v_snddriver_ram
-
-
-
-
-
-
-
-
-
-
-
-

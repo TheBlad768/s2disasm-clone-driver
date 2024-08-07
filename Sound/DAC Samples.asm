@@ -2,89 +2,89 @@
 ; DAC Samples Files
 ; ---------------------------------------------------------------
 
-;			| Filename	| Extension	| Folder (if any)
-	IncludeDAC	SegaPCM,	snd
+;			| Filename	| Folder
+		incdac	SegaPCM, "Sound/DAC/SegaPCM.pcm"
 
     if SMPS_S1DACSamples||SMPS_S2DACSamples
-	IncludeDAC	Kick,		snd,		Sonic 1 & 2
-	IncludeDAC	Snare,		snd,		Sonic 1 & 2
-	IncludeDAC	Timpani,	snd,		Sonic 1 & 2
+		incdac	Kick, "Sound/DAC/Sonic 1 & 2/Kick.pcm"
+		incdac	Snare, "Sound/DAC/Sonic 1 & 2/Snare.pcm"
+		incdac	Timpani, "Sound/DAC/Sonic 1 & 2/Timpani.pcm"
     endif
 
     if SMPS_S2DACSamples
-	IncludeDAC	Clap,		snd,		Sonic 1 & 2
-	IncludeDAC	Scratch,	snd,		Sonic 1 & 2
-	IncludeDAC	Tom,		snd,		Sonic 1 & 2
-	IncludeDAC	Bongo,		snd,		Sonic 1 & 2
+		incdac	Clap, "Sound/DAC/Sonic 1 & 2/Clap.pcm"
+		incdac	Scratch, "Sound/DAC/Sonic 1 & 2/Scratch.pcm"
+		incdac	Tom, "Sound/DAC/Sonic 1 & 2/Tom.pcm"
+		incdac	Bongo, "Sound/DAC/Sonic 1 & 2/Bongo.pcm"
     endif
 
     if SMPS_S3DACSamples||SMPS_SKDACSamples||SMPS_S3DDACSamples
-	IncludeDAC	SnareS3,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	TomS3,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	KickS3,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	MuffledSnare,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	CrashCymbal,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	RideCymbal,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	MetalHit,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	MetalHit2,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	MetalHit3,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	ClapS3,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	ElectricTom,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	SnareS32,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	TimpaniS3,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	SnareS33,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	Click,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	PowerKick,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	QuickGlassCrash,snd,		Sonic 3 & K & 3D
+		incdac	SnareS3, "Sound/DAC/Sonic 3 & K & 3D/SnareS3.pcm"
+		incdac	TomS3, "Sound/DAC/Sonic 3 & K & 3D/TomS3.pcm"
+		incdac	KickS3, "Sound/DAC/Sonic 3 & K & 3D/KickS3.pcm"
+		incdac	MuffledSnare, "Sound/DAC/Sonic 3 & K & 3D/MuffledSnare.pcm"
+		incdac	CrashCymbal, "Sound/DAC/Sonic 3 & K & 3D/CrashCymbal.pcm"
+		incdac	RideCymbal, "Sound/DAC/Sonic 3 & K & 3D/RideCymbal.pcm"
+		incdac	MetalHit, "Sound/DAC/Sonic 3 & K & 3D/MetalHit.pcm"
+		incdac	MetalHit2, "Sound/DAC/Sonic 3 & K & 3D/MetalHit2.pcm"
+		incdac	MetalHit3, "Sound/DAC/Sonic 3 & K & 3D/MetalHit3.pcm"
+		incdac	ClapS3, "Sound/DAC/Sonic 3 & K & 3D/ClapS3.pcm"
+		incdac	ElectricTom, "Sound/DAC/Sonic 3 & K & 3D/ElectricTom.pcm"
+		incdac	SnareS32, "Sound/DAC/Sonic 3 & K & 3D/SnareS32.pcm"
+		incdac	TimpaniS3, "Sound/DAC/Sonic 3 & K & 3D/TimpaniS3.pcm"
+		incdac	SnareS33, "Sound/DAC/Sonic 3 & K & 3D/SnareS33.pcm"
+		incdac	Click, "Sound/DAC/Sonic 3 & K & 3D/Click.pcm"
+		incdac	PowerKick, "Sound/DAC/Sonic 3 & K & 3D/PowerKick.pcm"
+		incdac	QuickGlassCrash, "Sound/DAC/Sonic 3 & K & 3D/QuickGlassCrash.pcm"
     endif
 
     if SMPS_S3DACSamples||SMPS_SKDACSamples
-	IncludeDAC	GlassCrashSnare,snd,		Sonic 3 & K & 3D
-	IncludeDAC	GlassCrash,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	GlassCrashKick,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	QuietGlassCrash,snd,		Sonic 3 & K & 3D
-	IncludeDAC	SnareKick,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	KickBass,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	ComeOn,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	DanceSnare,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	LooseKick,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	LooseKick2,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	Woo,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	Go,		snd,		Sonic 3 & K & 3D
-	IncludeDAC	SnareGo,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	PowerTom,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	WoodBlock,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	HitDrum,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	MetalCrashHit,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	EchoedClapHit,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	HipHopHitKick,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	HipHopPowerKick,snd,		Sonic 3 & K & 3D
-	IncludeDAC	BassHey,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	DanceStyleKick,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	HipHopHitKick2,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	RevFadingWind,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	ScratchS3,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	LooseSnareNoise,snd,		Sonic 3 & K & 3D
-	IncludeDAC	PowerKick2,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	CrashNoiseWoo,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	QuickHit,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	KickHey,	snd,		Sonic 3 & K & 3D
+		incdac	GlassCrashSnare, "Sound/DAC/Sonic 3 & K & 3D/GlassCrashSnare.pcm"
+		incdac	GlassCrash, "Sound/DAC/Sonic 3 & K & 3D/GlassCrash.pcm"
+		incdac	GlassCrashKick, "Sound/DAC/Sonic 3 & K & 3D/GlassCrashKick.pcm"
+		incdac	QuietGlassCrash, "Sound/DAC/Sonic 3 & K & 3D/QuietGlassCrash.pcm"
+		incdac	SnareKick, "Sound/DAC/Sonic 3 & K & 3D/SnareKick.pcm"
+		incdac	KickBass, "Sound/DAC/Sonic 3 & K & 3D/KickBass.pcm"
+		incdac	ComeOn, "Sound/DAC/Sonic 3 & K & 3D/ComeOn.pcm"
+		incdac	DanceSnare, "Sound/DAC/Sonic 3 & K & 3D/DanceSnare.pcm"
+		incdac	LooseKick, "Sound/DAC/Sonic 3 & K & 3D/LooseKick.pcm"
+		incdac	LooseKick2, "Sound/DAC/Sonic 3 & K & 3D/LooseKick2.pcm"
+		incdac	Woo, "Sound/DAC/Sonic 3 & K & 3D/Woo.pcm"
+		incdac	Go, "Sound/DAC/Sonic 3 & K & 3D/Go.pcm"
+		incdac	SnareGo, "Sound/DAC/Sonic 3 & K & 3D/SnareGo.pcm"
+		incdac	PowerTom, "Sound/DAC/Sonic 3 & K & 3D/PowerTom.pcm"
+		incdac	WoodBlock, "Sound/DAC/Sonic 3 & K & 3D/WoodBlock.pcm"
+		incdac	HitDrum, "Sound/DAC/Sonic 3 & K & 3D/HitDrum.pcm"
+		incdac	MetalCrashHit, "Sound/DAC/Sonic 3 & K & 3D/MetalCrashHit.pcm"
+		incdac	EchoedClapHit, "Sound/DAC/Sonic 3 & K & 3D/EchoedClapHit.pcm"
+		incdac	HipHopHitKick, "Sound/DAC/Sonic 3 & K & 3D/HipHopHitKick.pcm"
+		incdac	HipHopPowerKick, "Sound/DAC/Sonic 3 & K & 3D/HipHopPowerKick.pcm"
+		incdac	BassHey, "Sound/DAC/Sonic 3 & K & 3D/BassHey.pcm"
+		incdac	DanceStyleKick, "Sound/DAC/Sonic 3 & K & 3D/DanceStyleKick.pcm"
+		incdac	HipHopHitKick2, "Sound/DAC/Sonic 3 & K & 3D/HipHopHitKick2.pcm"
+		incdac	RevFadingWind, "Sound/DAC/Sonic 3 & K & 3D/RevFadingWind.pcm"
+		incdac	ScratchS3, "Sound/DAC/Sonic 3 & K & 3D/ScratchS3.pcm"
+		incdac	LooseSnareNoise, "Sound/DAC/Sonic 3 & K & 3D/LooseSnareNoise.pcm"
+		incdac	PowerKick2, "Sound/DAC/Sonic 3 & K & 3D/PowerKick2.pcm"
+		incdac	CrashNoiseWoo, "Sound/DAC/Sonic 3 & K & 3D/CrashNoiseWoo.pcm"
+		incdac	QuickHit, "Sound/DAC/Sonic 3 & K & 3D/QuickHit.pcm"
+		incdac	KickHey, "Sound/DAC/Sonic 3 & K & 3D/KickHey.pcm"
     endif
 
     if SMPS_S3DDACSamples
-	IncludeDAC	MetalCrashS3D,	snd,		Sonic 3 & K & 3D
-	IncludeDAC	IntroKickS3D,	snd,		Sonic 3 & K & 3D
+		incdac	MetalCrashS3D, "Sound/DAC/Sonic 3 & K & 3D/MetalCrashS3D.pcm"
+		incdac	IntroKickS3D, "Sound/DAC/Sonic 3 & K & 3D/IntroKickS3D.pcm"
     endif
 
     if SMPS_S3DACSamples
-	IncludeDAC	EchoedClapHitS3,snd,		Sonic 3 & K & 3D
+		incdac	EchoedClapHitS3, "Sound/DAC/Sonic 3 & K & 3D/EchoedClapHitS3.pcm"
     endif
 
     if SMPS_SCDACSamples
-	IncludeDAC	Beat,		snd,		Sonic Crackers
-	IncludeDAC	SnareSC,	snd,		Sonic Crackers
-	IncludeDAC	TimTom,		snd,		Sonic Crackers
-	IncludeDAC	LetsGo,		snd,		Sonic Crackers
-	IncludeDAC	Hey,		snd,		Sonic Crackers
+		incdac	Beat, "Sound/DAC/Sonic Crackers/Beat.pcm"
+		incdac	SnareSC, "Sound/DAC/Sonic Crackers/SnareSC.pcm"
+		incdac	TimTom, "Sound/DAC/Sonic Crackers/TimTom.pcm"
+		incdac	LetsGo, "Sound/DAC/Sonic Crackers/LetsGo.pcm"
+		incdac	Hey, "Sound/DAC/Sonic Crackers/Hey.pcm"
     endif
 	even

@@ -96,10 +96,10 @@ SourceSMPS2ASM set 0
 
 songStart set *
 
-	if MOMPASS==2
-	if SMPS2ASMVer < SourceSMPS2ASM
-	message "Song at 0x\{songStart} was made for a newer version of SMPS2ASM (this is version \{SMPS2ASMVer}, but song wants at least version \{SourceSMPS2ASM})."
-	endif
+	if MOMPASS==1
+		if SMPS2ASMVer < SourceSMPS2ASM
+			message "Song at 0x\{songStart} was made for a newer version of SMPS2ASM (this is version \{SMPS2ASMVer}, but song wants at least version \{SourceSMPS2ASM})."
+		endif
 	endif
 
 	endm
@@ -117,12 +117,15 @@ smpsHeaderVoice macro loc
 	if songStart<>*
 		fatal "Missing smpsHeaderStartSong"
 	endif
-	if MOMPASS==2
-	if ((loc-songStart >= $8000) || (loc-songStart < -$8000))
-		fatal "Voice bank too far away from song"
+
+.loc	:= loc
+
+	if MOMPASS>1
+		if ((.loc-songStart >= $8000) || (.loc-songStart < -$8000))
+			fatal "Voice bank too far away from song"
+		endif
 	endif
-	endif
-	dc.w	loc-songStart
+	dc.w	.loc-songStart
 	endm
 
 ; Header - Set up Voice Location as S3's Universal Voice Bank
@@ -158,12 +161,15 @@ smpsHeaderTempo macro div,mod
 
 ; Header - Set up DAC Channel
 smpsHeaderDAC macro loc,pitch,vol
-	if MOMPASS==2
-	if ((loc-songStart >= $8000) || (loc-songStart < -$8000))
-		fatal "Track is too far away from its header"
+
+.loc	:= loc
+
+	if MOMPASS>1
+		if ((.loc-songStart >= $8000) || (.loc-songStart < -$8000))
+			fatal "Track is too far away from its header"
+		endif
 	endif
-	endif
-	dc.w	loc-songStart
+	dc.w	.loc-songStart
 	if ("pitch"<>"")
 		dc.b	pitch
 		if ("vol"<>"")
@@ -178,25 +184,41 @@ smpsHeaderDAC macro loc,pitch,vol
 
 ; Header - Set up FM Channel
 smpsHeaderFM macro loc,pitch,vol
-	if MOMPASS==2
-	if ((loc-songStart >= $8000) || (loc-songStart < -$8000))
-		fatal "Track is too far away from its header"
+
+.loc	:= loc
+
+	if MOMPASS>1
+		if ((.loc-songStart >= $8000) || (.loc-songStart < -$8000))
+			fatal "Track is too far away from its header"
+		endif
 	endif
-	endif
-	dc.w	loc-songStart
+	dc.w	.loc-songStart
 	dc.b	pitch,vol
 	endm
 
 ; Header - Set up PSG Channel
 smpsHeaderPSG macro loc,pitch,vol,mod,voice
-	if MOMPASS==2
-	if ((loc-songStart >= $8000) || (loc-songStart < -$8000))
-		fatal "Track is too far away from its header"
+
+.loc	:= loc
+
+	if MOMPASS>1
+		if ((.loc-songStart >= $8000) || (.loc-songStart < -$8000))
+			fatal "Track is too far away from its header"
+		endif
 	endif
-	endif
-	dc.w	loc-songStart
+	dc.w	.loc-songStart
 	PSGPitchConvert pitch
-	dc.b	vol<<3,mod,voice
+	dc.b	(vol)<<3
+	if (SourceDriver>=3)
+		if (MOMPASS==1) && (mod <> 0) && (~~SMPS_EnableModulationEnvelopes)
+			warning "PSG track header specifies a frequency modulation envelope (of \{mod}) but support for it is disabled - go set SMPS_EnableModulationEnvelopes to 1"
+		endif
+		dc.b	mod
+	else
+		; Sometimes Sonic 1/2 songs specify a modulation envelope despite the driver not supporting them. Ignore them.
+		dc.b	0
+	endif
+	dc.b	voice
 	endm
 
 ; Header - Set up PWM Channel
@@ -225,18 +247,25 @@ smpsHeaderSFXChannel macro chanid,loc,pitch,vol
 		fatal "Using channel ID of FM6 ($06) in Sonic 1 or Sonic 2 drivers is unsupported. Change it to another channel."
 	endif
 	dc.b	$80,chanid
-	if MOMPASS==2
-	if ((loc-songStart >= $8000) || (loc-songStart < -$8000))
-		fatal "Track is too far away from its header"
+
+.loc	:= loc
+
+	if MOMPASS>1
+		if ((.loc-songStart >= $8000) || (.loc-songStart < -$8000))
+			fatal "Track is too far away from its header"
+		endif
 	endif
-	endif
-	dc.w	loc-songStart
+	dc.w	.loc-songStart
 	if (chanid&$80)<>0
 		PSGPitchConvert pitch
 	else
 		dc.b	pitch
 	endif
-	dc.b	vol
+	if (chanid==cPSG1) || (chanid==cPSG2) || (chanid==cPSG3)
+		dc.b	vol<<3
+	else
+		dc.b	vol
+	endif
 	endm
 ; ---------------------------------------------------------------------------------------------
 ; Co-ord Flag Macros and Equates
@@ -319,7 +348,7 @@ smpsSetVol macro val
 
 ; Works on all drivers
 smpsPSGAlterVol macro vol
-	dc.b	$FF,$0C,((vol<<3)&$7F)|(vol&$80)
+	dc.b	$FF,$0C,(((vol)<<3)&$7F)|((vol)&$80)
 	endm
 
 ; Clears pushing sound flag in S1
@@ -347,17 +376,25 @@ smpsFMvoice macro voice,songID
 
 ; F0wwxxyyzz - Modulation - ww: wait time - xx: modulation speed - yy: change per step - zz: number of steps
 smpsModSet macro wait,speed,change,step
-	dc.b	$FF,$0E
 	if SourceDriver>=3
-		dc.b	wait-1,speed,change,conv0To256(step)/conv0To256(speed)-1
+		dc.b	$FF,$21	; SMPS Z80 modulation mode
 	else
-		dc.b	wait,speed,change,step
+		dc.b	$FF,$0E	; SMPS 68k modulation mode
 	endif
+	dc.b	wait,speed,change,step
 	endm
 
 ; Turn on Modulation
-smpsModOn macro
-	dc.b	$FF,$0F
+smpsModOn macro type
+	if "type"<>""
+		if SMPS_EnableModulationEnvelopes
+			dc.b	$FF,$22,type
+		else
+			fatal "Go set SMPS_EnableModulationEnvelopes to 1"
+		endif
+	else
+		dc.b	$FF,$0F
+	endif
 	endm
 
 ; F2 - End of channel
@@ -421,7 +458,16 @@ smpsPlaySound macro index
 
 ; Set note values to xx-$40
 smpsSetNote macro val
-	dc.b	$FF,$1B,val
+	dc.b	$FF,$1B,(val-$40)&$FF
+	endm
+
+; Set Modulation
+smpsModChange macro val
+	if SMPS_EnableModulationEnvelopes
+		dc.b	$FF,$22,val
+	else
+		fatal "Go set SMPS_EnableModulationEnvelopes to 1"
+	endif
 	endm
 
 ; FCxxxx - Jump to xxxx
@@ -454,11 +500,6 @@ smpsMaxRelRate macro
 ; Backwards compatibility
 smpsAlterNote macro
 	smpsDetune	ALLARGS
-	endm
-
-; Historical version of smpsDetune
-smpsAlterNoteEcho macro
-	smpsDetune	ALLARGS-$A
 	endm
 
 smpsAlterPitch macro
