@@ -17,6 +17,9 @@
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; ASSEMBLY OPTIONS:
 ;
+MSUMode	= 0
+;	| If 1, enable MSU
+;
 gameRevision = 1
 ;	| If 0, a REV00 ROM is built
 ;	| If 1, a REV01 ROM is built, which contains some fixes
@@ -414,8 +417,13 @@ GameClrRAM:
 	move.l	d7,(a6)+
 	dbf	d6,GameClrRAM	; clear RAM ($0000-$FDFF)
 
-	jsr	(Init_MSU_Driver).l
-	seq	(SegaCD_Mode).w
+	if MSUMode
+		jsr	(Init_MSU_Driver).l
+		seq	(SegaCD_Mode).w
+	else
+		clr.b	(SegaCD_Mode).w
+	endif
+
 	bsr.w	VDPSetupGame
 	bsr.w	JmpTo_SoundDriverLoad
 	bsr.w	JoypadInit
