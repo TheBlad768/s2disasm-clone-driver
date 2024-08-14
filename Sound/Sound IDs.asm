@@ -44,7 +44,7 @@ MusID__End =			SMPS_id(ptr_musend)	; 20
 ; Sound IDs
 offset :=       SoundIndex
 ptrsize :=      4
-idstart :=      $80
+idstart :=      $40
 
 SndID__First                    = idstart
 SndID_Jump =                    SMPS_id(ptr_sndA0)   ; 80
