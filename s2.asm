@@ -24,7 +24,7 @@ gameRevision = 1
 ;	| If 0, a REV00 ROM is built
 ;	| If 1, a REV01 ROM is built, which contains some fixes
 ;	| If 2, a (theoretical) REV02 ROM is built, which contains even more fixes
-padToPowerOfTwo = 1
+padToPowerOfTwo = 0
 ;	| If 1, pads the end of the ROM to the next power of two bytes (for real hardware)
 ;
 fixBugs = 0
@@ -67,8 +67,12 @@ useFullWaterTables = 0
 	include "s2.constants.asm"
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+; Include sound driver macros and functions
+	include "Sound/Definitions.asm"
 
-	include "Sound/Definitions.asm"	; include sound driver macros and functions
+; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+; Include debugger macros and functions
+	include "ErrorHandler/Debugger.asm"
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; Expressing sprite mappings and DPLCs in a portable and human-readable form
@@ -86,29 +90,29 @@ StartOfRom:
 Vectors:
 	dc.l System_Stack	; Initial stack pointer value
 	dc.l EntryPoint		; Start of program
-	dc.l ErrorTrap		; Bus error
-	dc.l ErrorTrap		; Address error (4)
-	dc.l ErrorTrap		; Illegal instruction
-	dc.l ErrorTrap		; Division by zero
-	dc.l ErrorTrap		; CHK exception
-	dc.l ErrorTrap		; TRAPV exception (8)
-	dc.l ErrorTrap		; Privilege violation
-	dc.l ErrorTrap		; TRACE exception
-	dc.l ErrorTrap		; Line-A emulator
-	dc.l ErrorTrap		; Line-F emulator (12)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved) (16)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved) (20)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved) (24)
-	dc.l ErrorTrap		; Spurious exception
+	dc.l BusError			; Bus error
+	dc.l AddressError		; Address error (4)
+	dc.l IllegalInstr		; Illegal instruction
+	dc.l ZeroDivide		; Division by zero
+	dc.l ChkInstr			; CHK exception
+	dc.l TrapvInstr		; TRAPV exception (8)
+	dc.l PrivilegeViol		; Privilege violation
+	dc.l Trace			; TRACE exception
+	dc.l Line1010Emu		; Line-A emulator
+	dc.l Line1111Emu		; Line-F emulator (12)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved) (16)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved) (20)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved)
+	dc.l ErrorExcept		; Unused (reserved) (24)
+	dc.l ErrorExcept		; Spurious exception
 	dc.l ErrorTrap		; IRQ level 1
 	dc.l ErrorTrap		; IRQ level 2
 	dc.l ErrorTrap		; IRQ level 3 (28)
@@ -182,14 +186,6 @@ ROMEndLoc:
 	dc.b "                                        "	; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
 	dc.b "JUE             " ; Country code (region)
 EndOfHeader:
-
-; ===========================================================================
-; Crash/Freeze the 68000. Note that the Z80 continues to run, so the music keeps playing.
-; loc_200:
-ErrorTrap:
-	nop	; delay
-	nop	; delay
-	bra.s	ErrorTrap	; Loop indefinitely.
 
 ; ===========================================================================
 ; loc_206:
@@ -91953,6 +91949,11 @@ ArtNem_VinePulley:		BINCLUDE	"art/nemesis/Vine that lowers from MCZ.nem"
 ArtNem_MCZGateLog:		BINCLUDE	"art/nemesis/Drawbridge logs from MCZ.nem"
 	even
 
+; ---------------------------------------------------------------
+; Error handling module
+; ---------------------------------------------------------------
+
+		include "ErrorHandler/ErrorHandler.asm"
 
 ; end of 'ROM'
 	if padToPowerOfTwo && (*)&(*-1)
@@ -91962,6 +91963,7 @@ paddingSoFar	:= paddingSoFar+1
 	else
 		even
 	endif
+
 EndOfRom:
 	if MOMPASS=2
 		; "About" because it will be off by the same amount that Size_of_Snd_driver_guess is incorrect (if you changed it), and because I may have missed a small amount of internal padding somewhere
