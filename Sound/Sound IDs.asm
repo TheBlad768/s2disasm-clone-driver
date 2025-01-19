@@ -133,9 +133,10 @@ SndID__End =                    SMPS_id(ptr_sndend)  ; D1
 ; Sound command IDs
 offset :=	Sound_ExIndex
 ptrsize :=	2
-idstart :=	$FA
+idstart :=	$F9
 
 FlgID__First			= idstart
+MusID_StopSpecSFX =		SMPS_id(ptr_flgF9)	; F9
 MusID_StopSFX =			SMPS_id(ptr_flgFA)	; FA
 MusID_FadeOut =			SMPS_id(ptr_flgFB)	; FB
 SndID_SegaSound =		SMPS_id(ptr_flgFC)	; FC
