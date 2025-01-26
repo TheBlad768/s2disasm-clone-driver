@@ -921,22 +921,51 @@ PlayCD_Index:
 
 	; flag, loop time
 
+	; Other
+	dc.l _MCD_PlayTrack<<24|$00000000			; $01 (Results 2P)
+
 	; Levels
-	dc.l _MCD_PlayTrack<<24|$00000000			; $01 (DEZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $02 (EHZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $03 (MCZ 2P)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $04 (OOZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $05 (MTZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $06 (HTZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $07 (ARZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $08 (CNZ 2P)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $09 (CNZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $0A (DEZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $0B (MCZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $0C (EHZ 2P)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $0D (SCZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $0E (CPZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $0F (WFZ)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $10 (HPZ)
+
+	; Other 25
+	dc.l _MCD_PlayTrack<<24|$00000000			; $11 (Options)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $12 (Special Stage)
 
 	; Bosses
-	dc.l _MCD_PlayTrack<<24|$00000000			; $02 (Mid Boss)
-	dc.l _MCD_PlayTrack<<24|$00000000			; $03 (Boss)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $13 (Boss)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $14 (Final Boss)
 
 	; Main
-	dc.l _MCD_PlayTrack<<24|$00000000			; $04 (Invincible)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $15 (Ending)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $16 (Super Sonic)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $17 (Invincible)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $18 (Extra Life)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $19 (Title)
 
 	; End
-	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $05 (Act Clear)
-	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $06 (Countdown)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $1A (Act Clear)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $1B (Game Over)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $1C (Continue)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $1D (Emerald)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $1E (Credits)
+	dc.l _MCD_PlayTrack_Once<<24|$00000000	; $1F (Countdown)
 
 	; Extra
-	dc.l _MCD_PlayTrack<<24|$00000000			; $07 (Speedup)
+	dc.l _MCD_PlayTrack<<24|$00000000			; $20 (Speedup)
 	even
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
