@@ -90371,9 +90371,9 @@ ArtNem_VinePulley:		BINCLUDE	"art/nemesis/Vine that lowers from MCZ.nem"
 ArtNem_MCZGateLog:		BINCLUDE	"art/nemesis/Drawbridge logs from MCZ.nem"
 	even
 
-; ---------------------------------------------------------------
-; Error handling module
-; ---------------------------------------------------------------
+; --------------------------------------------------------------
+; Debugging modules
+; --------------------------------------------------------------
 
 		include "ErrorHandler/ErrorHandler.asm"
 
