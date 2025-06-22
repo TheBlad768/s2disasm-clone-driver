@@ -710,7 +710,7 @@ HandlePause:
 	bsr.w	PWMSilenceAll
     endif
 
-    	; Pause DAC channel
+	; Pause DAC channel
 	MPCM_stopZ80_safe
 	move.b	#Z_MPCM_COMMAND_PAUSE,(SMPS_z80_ram+Z_MPCM_CommandInput).l	; pause DAC
 	MPCM_startZ80_safe
