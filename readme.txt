@@ -1,3 +1,7 @@
+The sound driver is ported from SCE:
+
+See: https://github.com/TheBlad768/Sonic-Clean-Engine-S.C.E.-
+
 A disassembly of Sonic the Hedgehog 2 for the Sega Mega Drive/Genesis.
 
 To build this, use build.bat if you're a Windows user, or build.lua otherwise. The built ROM will be called 's2built.bin'.
