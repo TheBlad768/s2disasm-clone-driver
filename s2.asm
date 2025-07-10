@@ -12406,13 +12406,13 @@ LevSelControls_CheckLR:
 	beq.s	+
 	subq.b	#1,d0
 	bcc.s	+
-	moveq	#$7F,d0
+	moveq	#-1,d0
 
 +
 	btst	#button_right,d1
 	beq.s	+
 	addq.b	#1,d0
-	cmpi.w	#$80,d0
+	cmpi.w	#$100,d0
 	blo.s	+
 	moveq	#0,d0
 
@@ -12420,14 +12420,14 @@ LevSelControls_CheckLR:
 	btst	#button_A,d1
 	beq.s	+
 	addi.b	#$10,d0
-	andi.b	#$7F,d0
+	andi.b	#$FF,d0
 
 +
 	move.w	d0,(Sound_test_sound).w
 	andi.w	#button_B_mask|button_C_mask,d1
 	beq.s	+	; rts
 	move.w	(Sound_test_sound).w,d0
-	addi.w	#$80,d0
+;	addi.w	#$80,d0
 	jsrto	JmpTo_PlayMusic
 	lea	(debug_cheat).l,a0
 	lea	(super_sonic_cheat).l,a2
