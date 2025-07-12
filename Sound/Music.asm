@@ -42,65 +42,65 @@ ptr_musend
 ; ---------------------------------------------------------------------------
 ; Music data
 ; ---------------------------------------------------------------------------
-Music81:	include		"Sound/music/81 - 2 Player Menu.asm"
+Music81:	include		"Sound/Music/81 - 2 Player Menu.asm"
 		even
-Music82:	include		"Sound/music/82 - EHZ.asm"
+Music82:	include		"Sound/Music/82 - EHZ.asm"
 		even
-Music83:	include		"Sound/music/83 - MCZ 2P.asm"
+Music83:	include		"Sound/Music/83 - MCZ 2P.asm"
 		even
-Music84:	include		"Sound/music/84 - OOZ.asm"
+Music84:	include		"Sound/Music/84 - OOZ.asm"
 		even
-Music85:	include		"Sound/music/85 - MTZ.asm"
+Music85:	include		"Sound/Music/85 - MTZ.asm"
 		even
-Music86:	include		"Sound/music/86 - HTZ.asm"
+Music86:	include		"Sound/Music/86 - HTZ.asm"
 		even
-Music87:	include		"Sound/music/87 - ARZ.asm"
+Music87:	include		"Sound/Music/87 - ARZ.asm"
 		even
-Music88:	include		"Sound/music/88 - CNZ 2P.asm"
+Music88:	include		"Sound/Music/88 - CNZ 2P.asm"
 		even
-Music89:	include		"Sound/music/89 - CNZ.asm"
+Music89:	include		"Sound/Music/89 - CNZ.asm"
 		even
-Music8A:	include		"Sound/music/8A - DEZ.asm"
+Music8A:	include		"Sound/Music/8A - DEZ.asm"
 		even
-Music8B:	include		"Sound/music/8B - MCZ.asm"
+Music8B:	include		"Sound/Music/8B - MCZ.asm"
 		even
-Music8C:	include		"Sound/music/8C - EHZ 2P.asm"
+Music8C:	include		"Sound/Music/8C - EHZ 2P.asm"
 		even
-Music8D:	include		"Sound/music/8D - SCZ.asm"
+Music8D:	include		"Sound/Music/8D - SCZ.asm"
 		even
-Music8E:	include		"Sound/music/8E - CPZ.asm"
+Music8E:	include		"Sound/Music/8E - CPZ.asm"
 		even
-Music8F:	include		"Sound/music/8F - WFZ.asm"
+Music8F:	include		"Sound/Music/8F - WFZ.asm"
 		even
-Music90:	include		"Sound/music/90 - HPZ.asm"
+Music90:	include		"Sound/Music/90 - HPZ.asm"
 		even
-Music91:	include		"Sound/music/91 - Options.asm"
+Music91:	include		"Sound/Music/91 - Options.asm"
 		even
-Music92:	include		"Sound/music/92 - Special Stage.asm"
+Music92:	include		"Sound/Music/92 - Special Stage.asm"
 		even
-Music93:	include		"Sound/music/93 - Boss.asm"
+Music93:	include		"Sound/Music/93 - Boss.asm"
 		even
-Music94:	include		"Sound/music/94 - Final Boss.asm"
+Music94:	include		"Sound/Music/94 - Final Boss.asm"
 		even
-Music95:	include		"Sound/music/95 - Ending.asm"
+Music95:	include		"Sound/Music/95 - Ending.asm"
 		even
-Music96:	include		"Sound/music/96 - Super Sonic.asm"
+Music96:	include		"Sound/Music/96 - Super Sonic.asm"
 		even
-Music97:	include		"Sound/music/97 - Invincible.asm"
+Music97:	include		"Sound/Music/97 - Invincible.asm"
 		even
-Music98:	include		"Sound/music/98 - Extra Life.asm"
+Music98:	include		"Sound/Music/98 - Extra Life.asm"
 		even
-Music99:	include		"Sound/music/99 - Title Screen.asm"
+Music99:	include		"Sound/Music/99 - Title Screen.asm"
 		even
-Music9A:	include		"Sound/music/9A - End of Act.asm"
+Music9A:	include		"Sound/Music/9A - End of Act.asm"
 		even
-Music9B:	include		"Sound/music/9B - Game Over.asm"
+Music9B:	include		"Sound/Music/9B - Game Over.asm"
 		even
-Music9C:	include		"Sound/music/9C - Continue.asm"
+Music9C:	include		"Sound/Music/9C - Continue.asm"
 		even
-Music9D:	include		"Sound/music/9D - Got Emerald.asm"
+Music9D:	include		"Sound/Music/9D - Got Emerald.asm"
 		even
-Music9E:	include		"Sound/music/9E - Credits.asm"
+Music9E:	include		"Sound/Music/9E - Credits.asm"
 		even
-Music9F:	include		"Sound/music/9F - Drowning.asm"
+Music9F:	include		"Sound/Music/9F - Drowning.asm"
 		even
