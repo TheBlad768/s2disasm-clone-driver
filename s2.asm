@@ -31,25 +31,25 @@ fixBugs = 0
 ;	| If 1, enables all bug-fixes
 ;	| See also the 'FixDriverBugs' flag in 's2.sounddriver.asm'
 ;	| See also the 'FixMusicAndSFXDataBugs' flag in 'build.lua'
-allOptimizations = 0
+allOptimizations = 1
 ;	| If 1, enables all optimizations
 ;
-skipChecksumCheck = 0
+skipChecksumCheck = 1
 ;	| If 1, disables the slow bootup checksum calculation
 ;
-zeroOffsetOptimization = 0|allOptimizations
+zeroOffsetOptimization = 1|allOptimizations
 ;	| If 1, makes a handful of zero-offset instructions smaller
 ;
-removeJmpTos = 0|(gameRevision=2)|allOptimizations
+removeJmpTos = 1|(gameRevision=2)|allOptimizations
 ;	| If 1, many unnecessary JmpTos are removed, improving performance
 ;
-addsubOptimize = 0|(gameRevision=2)|allOptimizations
+addsubOptimize = 1|(gameRevision=2)|allOptimizations
 ;	| If 1, some add/sub instructions are optimized to addq/subq
 ;
-relativeLea = 0|(gameRevision<>2)|allOptimizations
+relativeLea = 1|(gameRevision<>2)|allOptimizations
 ;	| If 1, makes some instructions use pc-relative addressing, instead of absolute long
 ;
-useFullWaterTables = 0
+useFullWaterTables = 1
 ;	| If 1, zone offset tables for water levels cover all level slots instead of only slots 8-$F
 ;	| Set to 1 if you've shifted level IDs around or you want water in levels with a level slot below 8
 
