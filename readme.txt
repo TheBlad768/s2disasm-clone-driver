@@ -1,3 +1,5 @@
+You can use this source code for your projects. No problem. :)
+
 Port by TheBlad768
 
 The sound driver is ported from SCE:
