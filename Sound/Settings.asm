@@ -78,4 +78,4 @@ Play_Sample			= SMPS_PlayDACSample
 mus_FadeOut			= MusID_FadeOut
 mus_StopSFX			= MusID_StopSFX
 
-Clone_Driver_RAM	= (-(v_snddriver_ram&$80000000)<<1)|v_snddriver_ram
+Clone_Driver_RAM	= (-(Snd_driver_RAM&$80000000)<<1)|Snd_driver_RAM
