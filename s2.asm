@@ -690,6 +690,7 @@ Vint_Pause:
 ;VintSub8
 Vint_Level:
 	stopZ80
+
 	stopZ802
 	bsr.w	ReadJoypads
 	startZ802
@@ -1076,7 +1077,6 @@ Vint_Ending:
 	stopZ802
 	bsr.w	ReadJoypads
 	startZ802
-
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
