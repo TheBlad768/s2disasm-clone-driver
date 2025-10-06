@@ -20,6 +20,9 @@
 MSUMode	= 0
 ;	| If 1, enable MSU
 ;
+OptimiseStopZ80	= 2
+;	| If 1, remove stopZ80 and startZ80, if 2, use only for controllers (no effect on sound driver)
+;
 gameRevision = 1
 ;	| If 0, a REV00 ROM is built
 ;	| If 1, a REV01 ROM is built, which contains some fixes
@@ -654,7 +657,9 @@ Vint_PCM:
 	bne.s	+
 
 	stopZ80
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
 	startZ80
 +
 	tst.w	(Demo_Time_left).w	; is there time left on the demo?
@@ -685,8 +690,10 @@ Vint_Pause:
 ;VintSub8
 Vint_Level:
 	stopZ80
-
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(Teleport_timer).w
 	beq.s	loc_6F8
 	lea	(VDP_control_port).l,a5
@@ -804,7 +811,10 @@ Do_Updates:
 Vint_Pause_specialStage:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(SS_Last_Alternate_HorizScroll_Buf).w
 	beq.s	loc_84A
 
@@ -822,7 +832,10 @@ loc_86E:
 Vint_S2SS:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	bsr.w	SSSet_VScroll
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
@@ -989,7 +1002,10 @@ Vint_CtrlDMA:
 Vint_TitleCard:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(Water_fullscreen_flag).w
 	bne.s	loc_BB2
 
@@ -1057,7 +1073,10 @@ Vint_Fade:
 Vint_Ending:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
@@ -1111,7 +1130,9 @@ off_D3C:	offsetTable
 Vint_Menu:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
@@ -1134,7 +1155,10 @@ Vint_Menu:
 Do_ControllerPal:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(Water_fullscreen_flag).w
 	bne.s	loc_EDA
 
@@ -1256,10 +1280,12 @@ loc_1072:
 ; sub_10EC:
 JoypadInit:
 	stopZ80
+	stopZ802
 	moveq	#$40,d0
 	move.b	d0,(HW_Port_1_Control).l	; init port 1 (joypad 1)
 	move.b	d0,(HW_Port_2_Control).l	; init port 2 (joypad 2)
 	move.b	d0,(HW_Expansion_Control).l	; init port 3 (expansion/extra)
+	startZ802
 	startZ80
 	rts
 ; End of function JoypadInit

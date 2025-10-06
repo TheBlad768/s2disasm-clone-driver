@@ -84,14 +84,42 @@ clearRAM macro startaddr,endaddr
 
 ; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
 stopZ80 macro
+
+	if OptimiseStopZ80=0
 	move.w	#$100,(Z80_Bus_Request).l ; stop the Z80
 .loop:	btst	#0,(Z80_Bus_Request).l
 	bne.s	.loop ; loop until it says it's stopped
+	endif
+
     endm
 
 ; tells the Z80 to start again
 startZ80 macro
+
+	if OptimiseStopZ80=0
 	move.w	#0,(Z80_Bus_Request).l    ; start the Z80
+	endif
+
+    endm
+
+; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
+stopZ802 macro
+
+	if OptimiseStopZ80=2
+	move.w	#$100,(Z80_Bus_Request).l ; stop the Z80
+.loop:	btst	#0,(Z80_Bus_Request).l
+	bne.s	.loop ; loop until it says it's stopped
+	endif
+
+    endm
+
+; tells the Z80 to start again
+startZ802 macro
+
+	if OptimiseStopZ80=2
+	move.w	#0,(Z80_Bus_Request).l    ; start the Z80
+	endif
+
     endm
 
 ; function to make a little-endian 16-bit pointer for the Z80 sound driver

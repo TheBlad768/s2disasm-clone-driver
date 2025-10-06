@@ -6,8 +6,8 @@ SMPS_LoadDACDriver:
 	jsr	(MegaPCM_LoadDriver).l
 	lea	(MegaPCM_DAC_Table).l,a0
 	jsr	(MegaPCM_LoadSampleTable).l
-	tst.w	d0										; was sample table loaded successfully?
-	beq.s	.SampleTableOk							; if yes, branch
+	tst.w	d0									; was sample table loaded successfully?
+	beq.s	.SampleTableOk								; if yes, branch
 
 	ifdef __DEBUG__
 		; for MD Debugger v.2.5 or above
@@ -20,7 +20,7 @@ SMPS_LoadDACDriver:
 
 	; detect PAL region consoles
 	btst	#6,(Graphics_Flags).w
-	beq.s	.not_pal									; branch if it's not a PAL system
+	beq.s	.not_pal								; branch if it's not a PAL system
 	bset	#f_pal,(Clone_Driver_RAM+SMPS_RAM.bitfield1).w
 
 .not_pal
@@ -139,6 +139,7 @@ SMPS_QueueSound3_Extended:
 ;
 ; d0 = Sample ID
 ; ---------------------------------------------------------------------------
+
 SMPS_PlayDACSample:
 	SMPS_stopZ80_safe
 	move.b  d0,(SMPS_z80_ram+Z_MPCM_CommandInput).l
@@ -148,6 +149,7 @@ SMPS_PlayDACSample:
 	rts
 ; End of function SMPS_PlayDACSample
 
+    if SMPS_EnablePWM
 ; ---------------------------------------------------------------------------
 ; Play a PWM sample
 ;
@@ -155,7 +157,7 @@ SMPS_PlayDACSample:
 ; d1 = Sample volume/panning
 ; d2 = PWM channel*2 (0 = channel 1, 2 = channel 2, etc.)
 ; ---------------------------------------------------------------------------
-    if SMPS_EnablePWM
+
 SMPS_PlayPWMSample:
 	; Merge ID with volume/pan to get PWM command
 	lsl.w	#8,d1
