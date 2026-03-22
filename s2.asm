@@ -4059,7 +4059,7 @@ Sega_WaitPalette:
 	; sound queue only has room for one sound per frame. Some custom
 	; sound drivers don't have this limitation, however, and the sound
 	; will indeed play twice in those.
-	move.b	#SndID_SegaSound,d0
+	move.b	#MusID_SegaSound,d0
 	bsr.w	PlayMusic	; play "SEGA" sound
     endif
 	move.b	#VintID_SEGA,(Vint_routine).w
@@ -77856,7 +77856,7 @@ loc_3A3DA:
 loc_3A3E6:
 	addq.b	#2,routine(a0)
 	st.b	(SegaScr_PalDone_Flag).w
-	move.b	#SndID_SegaSound,d0
+	move.b	#MusID_SegaSound,d0
 	jsrto	JmpTo12_PlayMusic
 
 return_3A3F6:
