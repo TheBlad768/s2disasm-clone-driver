@@ -4,9 +4,9 @@
 ; ---------------------------------------------------------------------------
 ; size variables - you'll get an informational error if you need to change these...
 ; they are all in units of bytes
-Size_of_DAC_samples =		$2F00
-Size_of_SEGA_sound =		$6174
-Size_of_Snd_driver_guess =	$F64 ; approximate post-compressed size of the Z80 sound driver
+;Size_of_DAC_samples =		$2F00
+;Size_of_SEGA_sound =		$6174
+;Size_of_Snd_driver_guess =	$F64 ; approximate post-compressed size of the Z80 sound driver
 
 ; ---------------------------------------------------------------------------
 ; Object Status Table offsets (for everything between Object_RAM and Primary_Collision)
@@ -127,6 +127,7 @@ objoff_10 =		x_vel
 objoff_14 =		inertia+0
 objoff_15 =		inertia+1
 objoff_1F =		anim_frame_duration+1
+objoff_23 =		respawn_index
 objoff_27 =		$27
 objoff_28 =		subtype ; overlaps subtype, but a few objects use it for other things anyway
  enum               objoff_29=$29,objoff_2A=$2A,objoff_2B=$2B,objoff_2C=$2C,objoff_2D=$2D,objoff_2E=$2E,objoff_2F=$2F
@@ -151,21 +152,115 @@ ss_rings_tens = objoff_3D
 ss_rings_units = objoff_3E
 ss_last_angle_index = objoff_3F
 ; ---------------------------------------------------------------------------
+; Sonic 1 equivalency table for SSTs:
+obRender 	=		render_flags
+obGfx		=		art_tile
+obMap		=		mappings
+obX			=		x_pos
+obScreenY	=		x_sub
+obY			=		y_pos
+obVelX		=		x_vel
+obVelY		=		y_vel
+obInertia	=		inertia
+obHeight	=		y_radius
+obWidth		=		x_radius
+obPriority	=		priority
+obActWid	=		width_pixels
+obFrame		=		mapping_frame
+obAniFrame	=		anim_frame
+obAnim		=		anim
+obPrevAni	=		prev_anim					; used to be called obNextAni in Sonic 1
+obTimeFrame	=		anim_frame_duration
+obColType	=		collision_flags
+obColProp	=		collision_property
+obStatus	=		status
+obRespawnNo	=		respawn_index
+obRoutine	=		routine
+ob2ndRout	=		routine_secondary
+obAngle		=		angle
+obSubtype	=		subtype
+
+; the following were specific to Sonic in Sonic 1
+flashtime		=		invulnerable_time
+inv_time		=		invincibility_time
+shoetime		=		speedshoes_time
+standonobject	=		interact
+
+; ---------------------------------------------------------------------------
 ; property of all objects:
 object_size_bits =	6
 object_size =		1<<object_size_bits ; the size of an object
 next_object =		object_size
 
 ; ---------------------------------------------------------------------------
+; render_flags bitfield
+
+render_flags.x_flip		= 0 ; Sprite mirrored horizontally.
+render_flags.y_flip		= 1 ; Sprite mirrored vertically.
+render_flags.level_fg		= 2 ; Move with level foreground.
+render_flags.level_bg		= 3 ; Move with level background; leftover from Sonic 1.
+render_flags.explicit_height	= 4 ; Draw culling uses `y_radius` instead of guessing a height.
+render_flags.static_mappings	= 5 ; Mappings pointer points directly to a lone sprite piece instead of a list of sprites.
+render_flags.multi_sprite	= 6 ; Object SST holds metadata for multiple sprites.
+render_flags.on_screen		= 7 ; Object is on-screen and was rendered on the previous frame.
+
+; ---------------------------------------------------------------------------
+; status bitfield
+
+status.player.x_flip			= render_flags.x_flip ; Facing left.
+status.player.in_air			= 1 ; Airborne. 
+status.player.rolling			= 2 ; Spinning, i.e. jumping or rolling.
+status.player.on_object			= 3 ; Stood on an object rather than the level.
+status.player.rolljumping		= 4 ; Jumping whilst rolling; locks the player's controls.
+status.player.pushing			= 5 ; Pressing against an object.
+status.player.underwater		= 6 ; Submersed.
+status.player.prevent_tails_respawn	= 7 ; Prevents AI Tails from respawning.
+
+status.player.ss.x_flip		= render_flags.x_flip ; Sprite mirrored horizontally.
+status.player.ss.y_flip		= render_flags.y_flip ; Sprite mirrored vertically.
+status.player.ss.jumping	= 2 ; Jumping.
+status.player.ss.slowing	= 6 ; Coming to a stop after moving or landing.
+
+status.npc.x_flip		= render_flags.x_flip ; Facing right.
+status.npc.y_flip		= render_flags.y_flip ; Facing up.
+status.npc.misc			= 2 ; Used for various purposes by bosses.
+status.npc.p1_standing		= 3 ; Stood on by player 1.
+status.npc.p2_standing		= 4 ; Stood on by player 2.
+status.npc.p1_pushing		= 5 ; Pushed by player 1.
+status.npc.p2_pushing		= 6 ; Pushed by player 2.
+status.npc.no_balancing		= 7 ; Prevents player from performing their balancing animation whilst stood upon this object. Also set when the object is destroyed by the player.
+
+; ---------------------------------------------------------------------------
+; status_secondary bitfield
+
+status_secondary.shield		= 0
+status_secondary.invincible	= 1
+status_secondary.speed_shoes	= 2
+status_secondary.sliding	= 7
+
+; Ugly old constants, kept for backwards-compatibility.
+
+; status_secondary variable bit numbers
+status_sec_hasShield:		EQU	status_secondary.shield
+status_sec_isInvincible:	EQU	status_secondary.invincible
+status_sec_hasSpeedShoes:	EQU	status_secondary.speed_shoes
+status_sec_isSliding:		EQU	status_secondary.sliding
+; status_secondary variable masks (1 << x == pow(2, x))
+status_sec_hasShield_mask:	EQU	1<<status_sec_hasShield		; $01
+status_sec_isInvincible_mask:	EQU	1<<status_sec_isInvincible	; $02
+status_sec_hasSpeedShoes_mask:	EQU	1<<status_sec_hasSpeedShoes	; $04
+status_sec_isSliding_mask:	EQU	1<<status_sec_isSliding		; $80
+
+; ---------------------------------------------------------------------------
 ; Bits 3-6 of an object's status after a SolidObject call is a
 ; bitfield with the following meaning:
-p1_standing_bit   = 3
+p1_standing_bit   = status.npc.p1_standing
 p2_standing_bit   = p1_standing_bit + 1
 
 p1_standing       = 1<<p1_standing_bit
 p2_standing       = 1<<p2_standing_bit
 
-pushing_bit_delta = 2
+pushing_bit_delta = status.npc.p1_pushing-status.npc.p1_standing
 p1_pushing_bit    = p1_standing_bit + pushing_bit_delta
 p2_pushing_bit    = p1_pushing_bit + 1
 
@@ -263,20 +358,6 @@ bumper_x            = 2
 bumper_y            = 4
 next_bumper         = 6
 prev_bumper_x       = bumper_x-next_bumper
-
-; ---------------------------------------------------------------------------
-; status_secondary bitfield variables
-;
-; status_secondary variable bit numbers
-status_sec_hasShield:		EQU	0
-status_sec_isInvincible:	EQU	1
-status_sec_hasSpeedShoes:	EQU	2
-status_sec_isSliding:		EQU	7
-; status_secondary variable masks (1 << x == pow(2, x))
-status_sec_hasShield_mask:	EQU	1<<status_sec_hasShield		; $01
-status_sec_isInvincible_mask:	EQU	1<<status_sec_isInvincible	; $02
-status_sec_hasSpeedShoes_mask:	EQU	1<<status_sec_hasSpeedShoes	; $04
-status_sec_isSliding_mask:	EQU	1<<status_sec_isSliding		; $80
 
 ; ---------------------------------------------------------------------------
 ; Constants that can be used instead of hard-coded IDs for various things.
@@ -804,6 +885,28 @@ AniIDTailsAni_Fly		= id(TailsAni_Fly_ptr)		; 32 ; $20
 ; Other sizes
 palette_line_size =		$10*2	; 16 word entries
 
+tile_width =			8
+tile_height =			8
+tile_height_2p =		tile_height*2
+block_width =			tile_width*2
+block_height =			tile_height*2
+chunk_width =			block_width*8
+chunk_height =			block_height*8
+screen_width =			tile_width*40 ; H40 mode
+screen_height =			tile_height*28 ; V28 mode
+screen_width_ss =		tile_width*32 ; H32 mode
+screen_height_ss =		tile_height*28 ; V28 mode
+gameplay_plane_width =		tile_width*64 ; 64x32 plane size
+gameplay_plane_height =		tile_height*32 ; 64x32 plane size
+gameplay_plane_height_2p =	tile_height_2p*32 ; 64x32 plane size
+
+; The VDP's sprite coordinates place the top-left pixel of the screen at $80,$80,
+; these constants are to help deobfuscate that.
+sprite_left_boundary =		$80
+sprite_top_boundary =		$80
+; Interlace Mode 2 has its top-left coordinate at $80,$100 instead.
+sprite_top_boundary_2p =	sprite_top_boundary*2
+
 ; Sprite queue
 object_display_list_size_bits =		7
 object_display_list_size =		1<<object_display_list_size_bits ; How big a list is
@@ -930,9 +1033,9 @@ Sprite_Table_P2:		ds.b	$280	; Sprite attribute table buffer for the bottom split
 				ds.b	$80	; unused, but SAT buffer can spill over into this area when there are too many sprites on-screen
 
 HorizontalScrollBuffer struct dots
-	ds.l	224	; Total lines on the screen.
-	ds.l	16	; A bug/optimisation in 'Swscrl_CPZ' causes these values to be overflowed into.
-	ds.b	$40	; These are just unused.
+	ds.l	screen_height	; Total lines on the screen.
+	ds.l	16		; A bug/optimisation in 'Swscrl_CPZ' causes these values to be overflowed into.
+	ds.b	$40		; These are just unused.
 HorizontalScrollBuffer endstruct
 
 Horiz_Scroll_Buf:		HorizontalScrollBuffer
@@ -1119,10 +1222,12 @@ Sprite_Table_P2_Alternate:	ds.b	$280
     else
 
 Snd_driver_RAM:			ds.b $400	; $FFFFF100-$FFFFF5FF ; unused, leftover from the Sonic 1 sound driver (and used by it when you port it to Sonic 2)
-SegaCD_Mode:			ds.b $100
-
 Snd_driver_RAM_end		= *
+SegaCD_Mode:		= Snd_driver_RAM+$3F0
 
+				ds.b $100 ; unused
+
+;				ds.b	$500	; $FFFFF100-$FFFFF5FF ; unused, leftover from the Sonic 1 sound driver (and used by it when you port it to Sonic 2)
     endif
 
 Game_Mode:			ds.b	1	; see GameModesArray (master level trigger, Mstr_Lvl_Trigger)
@@ -1165,7 +1270,7 @@ Sprite_count:			ds.b	1	; the number of sprites drawn in the current frame
 PalCycle_Frame:			ds.w	1	; ColorID loaded in PalCycle
 PalCycle_Timer:			ds.w	1	; number of frames until next PalCycle call
 RNG_seed:			ds.l	1	; used for random number generation
-Game_paused:			ds.w	1
+Game_paused:			ds.w	1	
 				ds.b	4	; $FFFFF63C-$FFFFF63F ; seems unused
 DMA_data_thunk:			ds.w	1	; Used as a RAM holder for the final DMA command word. Data will NOT be preserved across V-INTs, so consider this space reserved.
 				ds.w	1	; $FFFFF642-$FFFFF643 ; seems unused
@@ -1186,7 +1291,7 @@ PalCycle_Frame2_CNZ:		ds.w	1
 				ds.b	4	; $FFFFF658-$FFFFF65B ; seems unused
 Palette_frame:			ds.w	1
 Palette_timer:			ds.b	1	; was "Palette_frame_count"
-Super_Sonic_palette:		ds.b	1
+Super_Sonic_palette:		ds.b	1	; 0 = off | 1 = fading | -1 = fading done
 
 DEZ_Eggman:					; Word
 DEZ_Shake_Timer:				; Word
@@ -1215,14 +1320,14 @@ MiscLevelVariables_End
 Plc_Buffer:			ds.b	6*16	; Pattern load queue (each entry is 6 bytes)
 Plc_Buffer_Only_End:
 				; these seem to store nemesis decompression state so PLC processing can be spread out across frames
-Plc_Buffer_Reg0:		ds.l	1
-Plc_Buffer_Reg4:		ds.l	1
-Plc_Buffer_Reg8:		ds.l	1
-Plc_Buffer_RegC:		ds.l	1
-Plc_Buffer_Reg10:		ds.l	1
-Plc_Buffer_Reg14:		ds.l	1
+Plc_Buffer_Reg0:		ds.l	1	
+Plc_Buffer_Reg4:		ds.l	1	
+Plc_Buffer_Reg8:		ds.l	1	
+Plc_Buffer_RegC:		ds.l	1	
+Plc_Buffer_Reg10:		ds.l	1	
+Plc_Buffer_Reg14:		ds.l	1	
 Plc_Buffer_Reg18:		ds.w	1	; amount of current entry remaining to decompress
-Plc_Buffer_Reg1A:		ds.w	1
+Plc_Buffer_Reg1A:		ds.w	1	
 				ds.b	4	; seems unused
 Plc_Buffer_End:
 
@@ -1584,7 +1689,7 @@ Two_player_mode_copy:		ds.w	1
 Options_menu_box:		ds.b	1
 				ds.b	1	; $FFFFFF8D ; unused
 Total_Bonus_Countdown:		ds.w	1
-
+				
 Level_Music:			ds.w	1
 Bonus_Countdown_3:		ds.w	1
 				ds.b	4	; $FFFFFF94-$FFFFFF97 ; seems unused
@@ -1815,11 +1920,11 @@ SS_TriggerRingsToGo:			ds.b	1
     endif
 	dephase
 
-	phase	ramaddr(Horiz_Scroll_Buf)	; Still in SS RAM
+	phase	Horiz_Scroll_Buf	; Still in SS RAM
 SS_Horiz_Scroll_Buf_1:		HorizontalScrollBuffer
 	dephase
 
-	phase	ramaddr(Boss_variables)	; Still in SS RAM
+	phase	Boss_variables	; Still in SS RAM
 				ds.b	4 ; unused
 SS_Offset_X:			ds.w	1
 SS_Offset_Y:			ds.w	1
@@ -1905,7 +2010,7 @@ Z80_Reset =			$A11200
 Security_Addr =			$A14000
 
 ; ---------------------------------------------------------------------------
-; I/O Area
+; I/O Area 
 HW_Version =			$A10001
 HW_Port_1_Data =		$A10003
 HW_Port_2_Data =		$A10005

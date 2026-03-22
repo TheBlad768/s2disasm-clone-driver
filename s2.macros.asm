@@ -43,16 +43,16 @@ dmaFillVRAM macro byte,addr,length
     endm
 
 ; calculates initial loop counter value for a dbf loop
+; that writes n bytes total at x bytes per iteration
+bytesToXcnt function n,x,n/x-1
+
+; calculates initial loop counter value for a dbf loop
 ; that writes n bytes total at 4 bytes per iteration
-bytesToLcnt function n,n>>2-1
+bytesToLcnt function n,bytesToXcnt(n,4)
 
 ; calculates initial loop counter value for a dbf loop
 ; that writes n bytes total at 2 bytes per iteration
-bytesToWcnt function n,n>>1-1
-
-; calculates initial loop counter value for a dbf loop
-; that writes n bytes total at x bytes per iteration
-bytesToXcnt function n,x,n/x-1
+bytesToWcnt function n,bytesToXcnt(n,2)
 
 ; fills a region of 68k RAM with 0
 clearRAM macro startaddr,endaddr
@@ -124,30 +124,6 @@ startZ802 macro
 
 ; function to make a little-endian 16-bit pointer for the Z80 sound driver
 z80_ptr function x,(x)<<8&$FF00|(x)>>8&$7F|$80
-
-; macro to declare a little-endian 16-bit pointer for the Z80 sound driver
-rom_ptr_z80 macro addr
-	dc.w z80_ptr(addr)
-    endm
-
-; aligns the start of a bank, and detects when the bank's contents is too large
-; can also print the amount of free space in a bank with DebugSoundbanks set
-startBank macro {INTLABEL}
-	align	$8000
-__LABEL__ label *
-soundBankStart := __LABEL__
-soundBankName := "__LABEL__"
-    endm
-
-DebugSoundbanks := 0
-
-finishBank macro
-	if * > soundBankStart + $8000
-		fatal "soundBank \{soundBankName} must fit in $8000 bytes but was $\{*-soundBankStart}. Try moving something to the other bank."
-	elseif (DebugSoundbanks<>0)&&(MOMPASS=1)
-		message "soundBank \{soundBankName} has $\{$8000+soundBankStart-*} bytes free at end."
-	endif
-    endm
 
 ; macro to replace the destination with its absolute value
 abs macro destination
@@ -291,22 +267,61 @@ make_art_tile_2p function addr,pal,pri,((pri&1)<<15)|((pal&3)<<13)|((addr&tile_m
 make_block_tile function addr,flx,fly,pal,pri,((pri&1)<<15)|((pal&3)<<13)|((fly&1)<<12)|((flx&1)<<11)|(addr&tile_mask)
 make_block_tile_2p function addr,flx,fly,pal,pri,((pri&1)<<15)|((pal&3)<<13)|((fly&1)<<12)|((flx&1)<<11)|((addr&tile_mask)>>1)
 tiles_to_bytes function addr,((addr&$7FF)<<5)
+tiles_to_words function addr,tiles_to_bytes(addr)/2
+tiles_to_longwords function addr,tiles_to_bytes(addr)/4
 make_block_tile_pair function addr,flx,fly,pal,pri,((make_block_tile(addr,flx,fly,pal,pri)<<16)|make_block_tile(addr,flx,fly,pal,pri))
 make_block_tile_pair_2p function addr,flx,fly,pal,pri,((make_block_tile_2p(addr,flx,fly,pal,pri)<<16)|make_block_tile_2p(addr,flx,fly,pal,pri))
 
 ; function to calculate the location of a tile in plane mappings
 planeLoc function width,col,line,(((width * line) + col) * 2)
 
+; The VDP's sprite coordinates place the top-left pixel of the screen at $80,$80,
+; these constants are to help deobfuscate that.
+spriteScreenPositionX function pos,sprite_left_boundary+pos
+spriteScreenPositionY function pos,sprite_top_boundary+pos
+spriteScreenPositionY2P function pos,sprite_top_boundary_2p+pos
+
+spriteScreenPositionXCentered function pos,spriteScreenPositionX(screen_width/2+(pos))
+spriteScreenPositionYCentered function pos,spriteScreenPositionY(screen_height/2+(pos))
+
 ; macro formatting text for the game's menus
 menutxt	macro	text
 	dc.b	strlen(text)-1
 	dc.b	text
+	rev02even
 	endm
 
 childObjectData macro objoff, objectID, subtype
 	dc.w	objoff
 	dc.b	objectID, subtype
 	endm
+
+; macro to simplify editing the demo scripts
+demoinput macro buttons,duration
+btns_mask := 0
+  irpc btn,"buttons"
+    switch "btn"
+    case "U"
+btns_mask := btns_mask|button_up_mask
+    case "D"
+btns_mask := btns_mask|button_down_mask
+    case "L"
+btns_mask := btns_mask|button_left_mask
+    case "R"
+btns_mask := btns_mask|button_right_mask
+    case "A"
+btns_mask := btns_mask|button_A_mask
+    case "B"
+btns_mask := btns_mask|button_B_mask
+    case "C"
+btns_mask := btns_mask|button_C_mask
+    case "S"
+btns_mask := btns_mask|button_start_mask
+    elsecase
+    endcase
+  endm
+	dc.b	btns_mask,duration-1
+ endm
 
 ; ---------------------------------------------------------------------------
 ; disable interrupts
