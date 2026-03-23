@@ -491,8 +491,8 @@ MegaPCM:	equ	MegaPCMLibraryBlob+$360
 MegaPCM_End:	equ	MegaPCMLibraryBlob+$1CD6
 
 	; Samples
-	include "Sound/MegaPCM - DAC Table.asm"
-	include "Sound/DAC Samples.asm"
+	include "sound/MegaPCM - DAC Table.asm"
+	include "sound/DAC Samples.asm"
 
 	ifdef __DEBUG__
 ; ------------------------------------------------------------------------------

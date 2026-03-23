@@ -71,7 +71,7 @@ useFullWaterTables = 1
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; Include sound driver macros and functions
-	include "Sound/Definitions.asm"
+	include "sound/Definitions.asm"
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; Include debugger macros and functions
@@ -1439,7 +1439,7 @@ ClearScreen:
 ; Clone Driver - Functions Subroutine
 ; ---------------------------------------------------------------------------
 
-		include "Sound/Engine/Functions.asm"
+		include "sound/engine/Functions.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to pause the game
@@ -90691,13 +90691,13 @@ ArtNem_MCZGateLog:		BINCLUDE	"art/nemesis/Drawbridge logs from MCZ.nem"
 ; Vladikcomper's Mega PCM 2.0 - DAC Sound Driver
 ; ---------------------------------------------------------------------------
 
-		include "Sound/Engine/MegaPCM.asm"
+		include "sound/engine/MegaPCM.asm"
 
 ; ---------------------------------------------------------------------------
 ; Clone sound driver subroutines
 ; ---------------------------------------------------------------------------
 
-		include "Sound/Engine/Sonic 2 Clone Driver v2.asm"
+		include "sound/engine/Sonic 2 Clone Driver v2.asm"
 
 	if MSUMode
 
@@ -90705,7 +90705,7 @@ ArtNem_MCZGateLog:		BINCLUDE	"art/nemesis/Drawbridge logs from MCZ.nem"
 ; MegaCD Driver
 ; ---------------------------------------------------------------------------
 
-		include "Sound/MSU/MSU.asm"
+		include "sound/MSU/MSU.asm"
 
 	endif
 

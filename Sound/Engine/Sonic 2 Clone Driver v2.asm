@@ -3655,29 +3655,29 @@ cfChanFMCommand:
 ; ---------------------------------------------------------------------------
 ; Music 'include's and pointers
 ; ---------------------------------------------------------------------------
-	include "Sound/Music.asm"
+	include "sound/Music.asm"
 
 ; ---------------------------------------------------------------------------
 ; SFX 'include's and pointers
 ; ---------------------------------------------------------------------------
-	include "Sound/SFX.asm"
+	include "sound/SFX.asm"
 
 ; ---------------------------------------------------------------------------
 ; Special SFX 'include's and pointers
 ; ---------------------------------------------------------------------------
     if SMPS_EnableSpecSFX
-	include "Sound/Special SFX.asm"
+	include "sound/Special SFX.asm"
     endif
 ; ---------------------------------------------------------------------------
 ; FM Universal Voice Bank
 ; ---------------------------------------------------------------------------
     if SMPS_EnableUniversalVoiceBank
-UniVoiceBank:	include "Sound/FM Universal Voice Bank.asm"
+UniVoiceBank:	include "sound/FM Universal Voice Bank.asm"
     endif
 ; ---------------------------------------------------------------------------
 ; PSG volume envelopes 'include's and pointers
 ; ---------------------------------------------------------------------------
-	include "Sound/PSG Volume Envelopes.asm"
+	include "sound/PSG Volume Envelopes.asm"
 
 	dc.b	$43,$6C,$6F,$77,$6E,$61,$63,$79
 	even
