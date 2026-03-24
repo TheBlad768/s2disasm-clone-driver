@@ -15,6 +15,6 @@ Any and all content presented in this repository is presented for informational 
 Commercial usage is expressly prohibited. Sonic Retro claims no ownership of any code in these repositories.
 You assume any and all responsibility for using this content responsibly. Sonic Retro claims no responsibiliy or warranty.
 
-Check out the Sonic Retro source code:
+Check out the Sonic Retro Disassembly:
 
 - https://github.com/sonicretro/s2disasm
