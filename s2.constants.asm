@@ -1725,17 +1725,7 @@ unk_FFDD:			ds.b	1	; Written to near loc_175EA, never read from
 unk_FFDE:			ds.b	1	; Written to near loc_175EA, never read from
 unk_FFDF:			ds.b	1	; Written to near loc_175EA, never read from
 
-; Values in these variables are passed to the sound driver during V-INT.
-; They use a playlist index, not a sound test index.
-SoundQueue STRUCT DOTS
-	Music0:	ds.b	1
-	SFX0:	ds.b	1
-	SFX1:	ds.b	1
-	SFX2:	ds.b	1 ; This one is never used, since nothing ever gets written to it.
-	Music1:	ds.b	1
-SoundQueue ENDSTRUCT
-
-Sound_Queue:			SoundQueue
+				ds.b	5 ; unused
 
 				ds.b	$B	; $FFFFFFE5-$FFFFFFEF ; seems unused
 
