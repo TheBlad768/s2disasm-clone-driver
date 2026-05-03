@@ -4,9 +4,9 @@
 ; ---------------------------------------------------------------------------
 ; size variables - you'll get an informational error if you need to change these...
 ; they are all in units of bytes
-Size_of_DAC_samples =		$2F00
-Size_of_SEGA_sound =		$6174
-Size_of_Snd_driver_guess =	$F64 ; approximate post-compressed size of the Z80 sound driver
+;Size_of_DAC_samples =		$2F00
+;Size_of_SEGA_sound =		$6174
+;Size_of_Snd_driver_guess =	$F64 ; approximate post-compressed size of the Z80 sound driver
 
 ; ---------------------------------------------------------------------------
 ; Object Status Table offsets (for everything between Object_RAM and Primary_Collision)
@@ -822,162 +822,6 @@ ObjID_ContinueIcons =		id(ObjPtr_ContinueIcons)	; DA
 ObjID_ContinueChars =		id(ObjPtr_ContinueChars)	; DB
 ObjID_RingPrize =		id(ObjPtr_RingPrize)		; DC
 
-; Music IDs
-offset :=	zMasterPlaylist
-ptrsize :=	1
-idstart :=	$81
-; $80 is reserved for silence, so if you make idstart $80 or less,
-; you may need to insert a dummy zMusIDPtr in the $80 slot
-
-MusID__First = idstart
-MusID_2PResult =	id(zMusIDPtr_2PResult)	; 81
-MusID_EHZ =		id(zMusIDPtr_EHZ)	; 82
-MusID_MCZ_2P =		id(zMusIDPtr_MCZ_2P)	; 83
-MusID_OOZ =		id(zMusIDPtr_OOZ)	; 84
-MusID_MTZ =		id(zMusIDPtr_MTZ)	; 85
-MusID_HTZ =		id(zMusIDPtr_HTZ)	; 86
-MusID_ARZ =		id(zMusIDPtr_ARZ)	; 87
-MusID_CNZ_2P =		id(zMusIDPtr_CNZ_2P)	; 88
-MusID_CNZ =		id(zMusIDPtr_CNZ)	; 89
-MusID_DEZ =		id(zMusIDPtr_DEZ)	; 8A
-MusID_MCZ =		id(zMusIDPtr_MCZ)	; 8B
-MusID_EHZ_2P =		id(zMusIDPtr_EHZ_2P)	; 8C
-MusID_SCZ =		id(zMusIDPtr_SCZ)	; 8D
-MusID_CPZ =		id(zMusIDPtr_CPZ)	; 8E
-MusID_WFZ =		id(zMusIDPtr_WFZ)	; 8F
-MusID_HPZ =		id(zMusIDPtr_HPZ)	; 90
-MusID_Options =		id(zMusIDPtr_Options)	; 91
-MusID_SpecStage =	id(zMusIDPtr_SpecStage)	; 92
-MusID_Boss =		id(zMusIDPtr_Boss)	; 93
-MusID_EndBoss =		id(zMusIDPtr_EndBoss)	; 94
-MusID_Ending =		id(zMusIDPtr_Ending)	; 95
-MusID_SuperSonic =	id(zMusIDPtr_SuperSonic); 96
-MusID_Invincible =	id(zMusIDPtr_Invincible); 97
-MusID_ExtraLife =	id(zMusIDPtr_ExtraLife)	; 98
-MusID_Title =		id(zMusIDPtr_Title)	; 99
-MusID_EndLevel =	id(zMusIDPtr_EndLevel)	; 9A
-MusID_GameOver =	id(zMusIDPtr_GameOver)	; 9B
-MusID_Continue =	id(zMusIDPtr_Continue)	; 9C
-MusID_Emerald =		id(zMusIDPtr_Emerald)	; 9D
-MusID_Credits =		id(zMusIDPtr_Credits)	; 9E
-MusID_Countdown =	id(zMusIDPtr_Countdown)	; 9F
-MusID__End =		id(zMusIDPtr__End)	; A0
-
-; Sound IDs
-offset :=	SoundIndex
-ptrsize :=	2
-idstart :=	$A0
-; $80 is reserved for silence, so if you make idstart $80 or less,
-; you may need to insert a dummy SndPtr in the $80 slot
-
-SndID__First = idstart
-SndID_Jump =		id(SndPtr_Jump)			; A0
-SndID_Checkpoint =	id(SndPtr_Checkpoint)		; A1
-SndID_SpikeSwitch =	id(SndPtr_SpikeSwitch)		; A2
-SndID_Hurt =		id(SndPtr_Hurt)			; A3
-SndID_Skidding =	id(SndPtr_Skidding)		; A4
-SndID_MissileDissolve =	id(SndPtr_MissileDissolve)	; A5
-SndID_HurtBySpikes =	id(SndPtr_HurtBySpikes)		; A6
-SndID_Sparkle =		id(SndPtr_Sparkle)		; A7
-SndID_Beep =		id(SndPtr_Beep)			; A8
-SndID_Bwoop =		id(SndPtr_Bwoop)		; A9
-SndID_Splash =		id(SndPtr_Splash)		; AA
-SndID_Swish =		id(SndPtr_Swish)		; AB
-SndID_BossHit =		id(SndPtr_BossHit)		; AC
-SndID_InhalingBubble =	id(SndPtr_InhalingBubble)	; AD
-SndID_ArrowFiring =	id(SndPtr_ArrowFiring)		; AE
-SndID_LavaBall =	id(SndPtr_LavaBall)		; AE
-SndID_Shield =		id(SndPtr_Shield)		; AF
-SndID_LaserBeam =	id(SndPtr_LaserBeam)		; B0
-SndID_Zap =		id(SndPtr_Zap)			; B1
-SndID_Drown =		id(SndPtr_Drown)		; B2
-SndID_FireBurn =	id(SndPtr_FireBurn)		; B3
-SndID_Bumper =		id(SndPtr_Bumper)		; B4
-SndID_Ring =		id(SndPtr_Ring)			; B5
-SndID_RingRight =	id(SndPtr_RingRight)		; B5
-SndID_SpikesMove =	id(SndPtr_SpikesMove)		; B6
-SndID_Rumbling =	id(SndPtr_Rumbling)		; B7
-SndID_Smash =		id(SndPtr_Smash)		; B9
-SndID_DoorSlam =	id(SndPtr_DoorSlam)		; BB
-SndID_SpindashRelease =	id(SndPtr_SpindashRelease)	; BC
-SndID_Hammer =		id(SndPtr_Hammer)		; BD
-SndID_Roll =		id(SndPtr_Roll)			; BE
-SndID_ContinueJingle =	id(SndPtr_ContinueJingle)	; BF
-SndID_CasinoBonus =	id(SndPtr_CasinoBonus)		; C0
-SndID_Explosion =	id(SndPtr_Explosion)		; C1
-SndID_WaterWarning =	id(SndPtr_WaterWarning)		; C2
-SndID_EnterGiantRing =	id(SndPtr_EnterGiantRing)	; C3
-SndID_BossExplosion =	id(SndPtr_BossExplosion)	; C4
-SndID_TallyEnd =	id(SndPtr_TallyEnd)		; C5
-SndID_RingSpill =	id(SndPtr_RingSpill)		; C6
-SndID_Flamethrower =	id(SndPtr_Flamethrower)		; C8
-SndID_Bonus =		id(SndPtr_Bonus)		; C9
-SndID_SpecStageEntry =	id(SndPtr_SpecStageEntry)	; CA
-SndID_SlowSmash =	id(SndPtr_SlowSmash)		; CB
-SndID_Spring =		id(SndPtr_Spring)		; CC
-SndID_Blip =		id(SndPtr_Blip)			; CD
-SndID_RingLeft =	id(SndPtr_RingLeft)		; CE
-SndID_Signpost =	id(SndPtr_Signpost)		; CF
-SndID_CNZBossZap =	id(SndPtr_CNZBossZap)		; D0
-SndID_Signpost2P =	id(SndPtr_Signpost2P)		; D3
-SndID_OOZLidPop =	id(SndPtr_OOZLidPop)		; D4
-SndID_SlidingSpike =	id(SndPtr_SlidingSpike)		; D5
-SndID_CNZElevator =	id(SndPtr_CNZElevator)		; D6
-SndID_PlatformKnock =	id(SndPtr_PlatformKnock)	; D7
-SndID_BonusBumper =	id(SndPtr_BonusBumper)		; D8
-SndID_LargeBumper =	id(SndPtr_LargeBumper)		; D9
-SndID_Gloop =		id(SndPtr_Gloop)		; DA
-SndID_PreArrowFiring =	id(SndPtr_PreArrowFiring)	; DB
-SndID_Fire =		id(SndPtr_Fire)			; DC
-SndID_ArrowStick =	id(SndPtr_ArrowStick)		; DD
-SndID_Helicopter =	id(SndPtr_Helicopter)		; DE
-SndID_SuperTransform =	id(SndPtr_SuperTransform)	; DF
-SndID_SpindashRev =	id(SndPtr_SpindashRev)		; E0
-SndID_Rumbling2 =	id(SndPtr_Rumbling2)		; E1
-SndID_CNZLaunch =	id(SndPtr_CNZLaunch)		; E2
-SndID_Flipper =		id(SndPtr_Flipper)		; E3
-SndID_HTZLiftClick =	id(SndPtr_HTZLiftClick)		; E4
-SndID_Leaves =		id(SndPtr_Leaves)		; E5
-SndID_MegaMackDrop =	id(SndPtr_MegaMackDrop)		; E6
-SndID_DrawbridgeMove =	id(SndPtr_DrawbridgeMove)	; E7
-SndID_QuickDoorSlam =	id(SndPtr_QuickDoorSlam)	; E8
-SndID_DrawbridgeDown =	id(SndPtr_DrawbridgeDown)	; E9
-SndID_LaserBurst =	id(SndPtr_LaserBurst)		; EA
-SndID_Scatter =		id(SndPtr_Scatter)		; EB
-SndID_LaserFloor =	id(SndPtr_LaserFloor)		; EB
-SndID_Teleport =	id(SndPtr_Teleport)		; EC
-SndID_Error =		id(SndPtr_Error)		; ED
-SndID_MechaSonicBuzz =	id(SndPtr_MechaSonicBuzz)	; EE
-SndID_LargeLaser =	id(SndPtr_LargeLaser)		; EF
-SndID_OilSlide =	id(SndPtr_OilSlide)		; F0
-SndID__End =		id(SndPtr__End)			; F1
-
-; Sound command IDs
-offset :=	zCommandIndex
-ptrsize :=	4
-idstart :=	$F8
-
-CmdID__First = idstart
-MusID_StopSFX =		id(CmdPtr_StopSFX)	; F8
-MusID_FadeOut =		id(CmdPtr_FadeOut)	; F9
-SndID_SegaSound =	id(CmdPtr_SegaSound)	; FA
-MusID_SpeedUp =		id(CmdPtr_SpeedUp)	; FB
-MusID_SlowDown =	id(CmdPtr_SlowDown)	; FC
-MusID_Stop =		id(CmdPtr_Stop)		; FD
-CmdID__End =		id(CmdPtr__End)		; FE
-
-MusID_Pause =		$7E+$80			; FE
-MusID_Unpause =		$7F+$80			; FF
-
-    if MOMPASS > 1 ; Avoid undefined symbol errors by checking only after the first pass.
-        if MusID__End > SndID__First
-            fatal "You have too many SndPtrs. MusID__End ($\{MusID__End}) can't exceed SndID__First ($\{SndID__First})."
-        endif
-        if SndID__End > CmdID__First
-            fatal "You have too many SndPtrs. SndID__End ($\{SndID__End}) can't exceed CmdID__First ($\{CmdID__First})."
-        endif
-    endif
-
 ; 2P VS results screens
 offset := TwoPlayerResultsPointers
 ptrsize := 8
@@ -1376,7 +1220,14 @@ Underwater_palette_line4:	ds.b palette_line_size
 Sprite_Table_Alternate:		ds.b	$280
 Sprite_Table_P2_Alternate:	ds.b	$280
     else
-				ds.b	$500	; $FFFFF100-$FFFFF5FF ; unused, leftover from the Sonic 1 sound driver (and used by it when you port it to Sonic 2)
+
+Snd_driver_RAM:			ds.b $400	; $FFFFF100-$FFFFF5FF ; unused, leftover from the Sonic 1 sound driver (and used by it when you port it to Sonic 2)
+Snd_driver_RAM_end		= *
+SegaCD_Mode:		= Snd_driver_RAM+$3F0
+
+				ds.b $100 ; unused
+
+;				ds.b	$500	; $FFFFF100-$FFFFF5FF ; unused, leftover from the Sonic 1 sound driver (and used by it when you port it to Sonic 2)
     endif
 
 Game_Mode:			ds.b	1	; see GameModesArray (master level trigger, Mstr_Lvl_Trigger)
@@ -1874,17 +1725,7 @@ unk_FFDD:			ds.b	1	; Written to near loc_175EA, never read from
 unk_FFDE:			ds.b	1	; Written to near loc_175EA, never read from
 unk_FFDF:			ds.b	1	; Written to near loc_175EA, never read from
 
-; Values in these variables are passed to the sound driver during V-INT.
-; They use a playlist index, not a sound test index.
-SoundQueue STRUCT DOTS
-	Music0:	ds.b	1
-	SFX0:	ds.b	1
-	SFX1:	ds.b	1
-	SFX2:	ds.b	1 ; This one is never used, since nothing ever gets written to it.
-	Music1:	ds.b	1
-SoundQueue ENDSTRUCT
-
-Sound_Queue:			SoundQueue
+				ds.b	5 ; unused
 
 				ds.b	$B	; $FFFFFFE5-$FFFFFFEF ; seems unused
 
