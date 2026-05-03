@@ -96,14 +96,14 @@ MCZ_2p_Jump07:
 	dc.b	nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst, nRst
 	smpsCall            MCZ_2p_Call03
 	dc.b	$24, nB4, nD5, $18, smpsNoAttack, $30, smpsNoAttack, $30
-	smpsPSGAlterVolS2   $FE
+	smpsPSGAlterVol     $FE
 	dc.b	nG5, $24, nF5, nE5, $18, nF5, $24, nE5, nC5, $18, nC5, nD5
 	dc.b	$0C, nB4, $30, smpsNoAttack, $0C, smpsNoAttack, $30, smpsNoAttack, $24, nRst, $0C, nRst
 	dc.b	$30, nRst, nRst, nRst, nA4, $24, nC5, nE5, $18, nD5, $24, nB4
 	dc.b	nG4, $18, nF4, nD4, $0C, nG4, $30, smpsNoAttack, $0C, smpsNoAttack, $30, smpsNoAttack
 	dc.b	$18, nRst, $18, nA4, $24, nC5, nE5, $18, nD5, $24, nB4, nG4
 	dc.b	$18, nG5, $30, smpsNoAttack, $30, smpsNoAttack, $30, smpsNoAttack, $0C, nRst, $24
-	smpsPSGAlterVolS2   $02
+	smpsPSGAlterVol     $02
 	smpsJump            MCZ_2p_Jump07
 
 ; FM4 Data
@@ -135,10 +135,10 @@ MCZ_2p_Jump03:
 	smpsAlterPitch      $F4
 	smpsSetvoice        $01
 	dc.b	nRst, $30, nRst, nRst, nRst, $24, nG4, $06, nF4, nG4, $0C, nG4
-	dc.b	nF4, $06, nG4, $0C, $06, nRst, $24, $06, nF4, nG4, $0C
+	dc.b	nF4, $06, nG4, $0C, $06, nRst, $24, nRst, $06, nF4, nG4, $0C
 	dc.b	nG4, nF4, $06, nG4, $0C, $06, nRst, $30, nRst, $30, nRst, nRst
-	dc.b	nRst, $24, $06, nF4, nG4, $0C, nG4, nF4, $06, nG4, $0C
-	dc.b	$06, nRst, $24, $06, nF4, nG4, $0C, nG4, nF4, $06, nG4
+	dc.b	nRst, $24, nRst, $06, nF4, nG4, $0C, nG4, nF4, $06, nG4, $0C
+	dc.b	$06, nRst, $24, nRst, $06, nF4, nG4, $0C, nG4, nF4, $06, nG4
 	dc.b	$0C, $06, nRst, $18
 	smpsAlterVol        $0E
 	smpsAlterPitch      $0C
@@ -176,10 +176,10 @@ MCZ_2p_Jump02:
 	smpsAlterPitch      $F4
 	smpsSetvoice        $01
 	dc.b	nRst, $30, nRst, $30, nRst, $30, nRst, $24, nD4, $06, nC4, nD4
-	dc.b	$0C, nD4, nC4, $06, nD4, $0C, $06, nRst, $24, $06, nC4
+	dc.b	$0C, nD4, nC4, $06, nD4, $0C, $06, nRst, $24, nRst, $06, nC4
 	dc.b	nD4, $0C, nD4, nC4, $06, nD4, $0C, $06, nRst, $30, nRst, $30
-	dc.b	nRst, nRst, nRst, $24, $06, nC4, nD4, $0C, nD4, nC4, $06
-	dc.b	nD4, $0C, $06, nRst, $24, $06, nC4, nD4, $0C, nD4, nD4
+	dc.b	nRst, nRst, nRst, $24, nRst, $06, nC4, nD4, $0C, nD4, nC4, $06
+	dc.b	nD4, $0C, $06, nRst, $24, nRst, $06, nC4, nD4, $0C, nD4, nD4
 	dc.b	$06, nC4, $0C, $06, nRst, $19
 	smpsAlterVol        $0E
 	smpsAlterPitch      $0C
@@ -200,7 +200,7 @@ MCZ_2p_Jump01:
 
 MCZ_2p_Loop00:
 	dc.b	nB4, $0C, nB4, nB4, $06, nRst, $12, nA4, $0C, nA4, nB4, $06
-	dc.b	nRst, $12, $0C, $06, nB4, $0C, nB4, nB4, $06, nA4
+	dc.b	nRst, $12, nRst, $0C, nRst, $06, nB4, $0C, nB4, nB4, $06, nA4
 	dc.b	$0C, nC5, nB4, $06, nRst, $12
 	smpsLoop            $00, $09, MCZ_2p_Loop00
 
@@ -208,7 +208,7 @@ MCZ_2p_Loop01:
 	dc.b	nA4, $0C, nA4, nA4, $06, nRst, $12, nG4, $0C, nG4, nA4, $06
 	dc.b	nRst, $12, nG4, $0C, $06, nG4, $0C, nG4, nG4, $06, nG4, $0C
 	dc.b	nE4, nG4, $06, nRst, $12, nB4, $0C, nB4, nB4, $06, nRst, $12
-	dc.b	nA4, $0C, nA4, nB4, $06, nRst, $12, $0C, $06, nB4
+	dc.b	nA4, $0C, nA4, nB4, $06, nRst, $12, nRst, $0C, nRst, $06, nB4
 	dc.b	$0C, nB4, nB4, $06, nA4, $0C, nC5, nB4, $06, nRst, $12
 	smpsLoop            $00, $02, MCZ_2p_Loop01
 	smpsJump            MCZ_2p_Jump01
@@ -224,7 +224,7 @@ MCZ_2p_Jump06:
 
 MCZ_2p_Loop02:
 	dc.b	nG4, $0C, nG4, nG4, $06, nRst, $12, nF4, $0C, nF4, nG4, $06
-	dc.b	nRst, $12, $0C, $06, nG4, $0C, nG4, nG4, $06, nF4
+	dc.b	nRst, $12, nRst, $0C, nRst, $06, nG4, $0C, nG4, nG4, $06, nF4
 	dc.b	$0C, nA4, nG4, $06, nRst, $12
 	smpsLoop            $00, $09, MCZ_2p_Loop02
 
@@ -232,7 +232,7 @@ MCZ_2p_Loop03:
 	dc.b	nF4, $0C, nF4, nF4, $06, nRst, $12, nE4, $0C, nE4, nF4, $06
 	dc.b	nRst, $12, nE4, $0C, $06, nE4, $0C, nE4, nE4, $06, nE4, $0C
 	dc.b	nC4, nE4, $06, nRst, $12, nG4, $0C, nG4, nG4, $06, nRst, $12
-	dc.b	nF4, $0C, nF4, nG4, $06, nRst, $12, $0C, $06, nG4
+	dc.b	nF4, $0C, nF4, nG4, $06, nRst, $12, nRst, $0C, nRst, $06, nG4
 	dc.b	$0C, nG4, nG4, $06, nF4, $0C, nA4, nG4, $06, nRst, $12
 	smpsLoop            $00, $02, MCZ_2p_Loop03
 	smpsJump            MCZ_2p_Jump06

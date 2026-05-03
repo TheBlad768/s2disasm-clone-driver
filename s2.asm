@@ -17,36 +17,42 @@
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; ASSEMBLY OPTIONS:
 ;
+MSUMode	= 0
+;	| If 1, enable MSU
+;
+OptimiseStopZ80	= 2
+;	| If 1, remove stopZ80 and startZ80, if 2, use only for controllers (no effect on sound driver)
+;
 gameRevision = 1
 ;	| If 0, a REV00 ROM is built
 ;	| If 1, a REV01 ROM is built, which contains some fixes
 ;	| If 2, a (theoretical) REV02 ROM is built, which contains even more fixes
-padToPowerOfTwo = 1
+padToPowerOfTwo = 0
 ;	| If 1, pads the end of the ROM to the next power of two bytes (for real hardware)
 ;
 fixBugs = 0
 ;	| If 1, enables all bug-fixes
 ;	| See also the 'FixDriverBugs' flag in 's2.sounddriver.asm'
 ;	| See also the 'FixMusicAndSFXDataBugs' flag in 'build.lua'
-allOptimizations = 0
+allOptimizations = 1
 ;	| If 1, enables all optimizations
 ;
-skipChecksumCheck = 0
+skipChecksumCheck = 1
 ;	| If 1, disables the slow bootup checksum calculation
 ;
-zeroOffsetOptimization = 0|allOptimizations
+zeroOffsetOptimization = 1|allOptimizations
 ;	| If 1, makes a handful of zero-offset instructions smaller
 ;
-removeJmpTos = 0|(gameRevision>=2)|allOptimizations
+removeJmpTos = 1|(gameRevision>=2)|allOptimizations
 ;	| If 1, many unnecessary JmpTos are removed, improving performance
 ;
-addsubOptimize = 0|(gameRevision=2)|allOptimizations
+addsubOptimize = 1|(gameRevision=2)|allOptimizations
 ;	| If 1, some add/sub instructions are optimized to addq/subq
 ;
-relativeLea = 0|(gameRevision<2)|allOptimizations
+relativeLea = 1|(gameRevision<2)|allOptimizations
 ;	| If 1, makes some instructions use pc-relative addressing, instead of absolute long
 ;
-useFullWaterTables = 0
+useFullWaterTables = 1
 ;	| If 1, zone offset tables for water levels cover all level slots instead of only slots 8-$F
 ;	| Set to 1 if you've shifted level IDs around or you want water in levels with a level slot below 8
 
@@ -64,10 +70,12 @@ useFullWaterTables = 0
 	include "s2.constants.asm"
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-; Expressing SMPS bytecode in a portable and human-readable form
-FixMusicAndSFXDataBugs = fixBugs
-SonicDriverVer = 2 ; Tell SMPS2ASM that we are targetting Sonic 2's sound driver
-	include "sound/_smps2asm_inc.asm"
+; Include sound driver macros and functions
+	include "sound/Definitions.asm"
+
+; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+; Include debugger macros and functions
+	include "ErrorHandler/Debugger.asm"
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; Expressing sprite mappings and DPLCs in a portable and human-readable form
@@ -85,29 +93,29 @@ StartOfRom:
 Vectors:
 	dc.l System_Stack	; Initial stack pointer value
 	dc.l EntryPoint		; Start of program
-	dc.l ErrorTrap		; Bus error
-	dc.l ErrorTrap		; Address error (4)
-	dc.l ErrorTrap		; Illegal instruction
-	dc.l ErrorTrap		; Division by zero
-	dc.l ErrorTrap		; CHK exception
-	dc.l ErrorTrap		; TRAPV exception (8)
-	dc.l ErrorTrap		; Privilege violation
-	dc.l ErrorTrap		; TRACE exception
-	dc.l ErrorTrap		; Line-A emulator
-	dc.l ErrorTrap		; Line-F emulator (12)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved) (16)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved) (20)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved)
-	dc.l ErrorTrap		; Unused (reserved) (24)
-	dc.l ErrorTrap		; Spurious exception
+	dc.l BusError		; Bus error
+	dc.l AddressError	; Address error (4)
+	dc.l IllegalInstr	; Illegal instruction
+	dc.l ZeroDivide		; Division by zero
+	dc.l ChkInstr		; CHK exception
+	dc.l TrapvInstr		; TRAPV exception (8)
+	dc.l PrivilegeViol	; Privilege violation
+	dc.l Trace		; TRACE exception
+	dc.l Line1010Emu	; Line-A emulator
+	dc.l Line1111Emu	; Line-F emulator (12)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved) (16)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved) (20)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved)
+	dc.l ErrorExcept	; Unused (reserved) (24)
+	dc.l ErrorExcept	; Spurious exception
 	dc.l ErrorTrap		; IRQ level 1
 	dc.l ErrorTrap		; IRQ level 2
 	dc.l ErrorTrap		; IRQ level 3 (28)
@@ -181,14 +189,6 @@ ROMEndLoc:
 	dc.b "                                        "	; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
 	dc.b "JUE             " ; Country code (region)
 EndOfHeader:
-
-; ===========================================================================
-; Crash/Freeze the 68000. Note that the Z80 continues to run, so the music keeps playing.
-; loc_200:
-ErrorTrap:
-	nop	; delay
-	nop	; delay
-	bra.s	ErrorTrap	; Loop indefinitely.
 
 ; ===========================================================================
 ; loc_206:
@@ -416,6 +416,13 @@ GameClrRAM:
 	move.l	d7,(a6)+
 	dbf	d6,GameClrRAM	; clear RAM ($0000-$FDFF)
 
+	if MSUMode
+		jsr	(Init_MSU_Driver).l
+		seq	(SegaCD_Mode).w
+	else
+		clr.b	(SegaCD_Mode).w
+	endif
+
 	bsr.w	VDPSetupGame
 	bsr.w	JmpTo_SoundDriverLoad
 	bsr.w	JoypadInit
@@ -504,6 +511,9 @@ V_Int:
 	move.w	Vint_SwitchTbl(pc,d0.w),d0
 	jsr	Vint_SwitchTbl(pc,d0.w)
 
+VintMusic:
+	SMPS_UpdateSoundDriver						; update SMPS	; warning: a5-a6 will be overwritten
+
 VintRet:
 	addq.l	#1,(Vint_runcount).w
 	movem.l	(sp)+,d0-a6
@@ -535,12 +545,7 @@ Vint_Lag:
 	beq.s	.isInLevelMode
 	cmpi.b	#GameModeID_Level,(Game_Mode).w	; Zone play mode?
 	beq.s	.isInLevelMode
-
-	stopZ80			; stop the Z80
-	bsr.w	sndDriverInput	; give input to the sound driver
-	startZ80		; start the Z80
-
-	bra.s	VintRet
+	bra.s	VintMusic
 ; ---------------------------------------------------------------------------
 
 ; loc_4C4:
@@ -576,11 +581,10 @@ Vint_Lag:
 .afterSetPalette:
 	move.w	(Hint_counter_reserve).w,(a5)
 	move.w	#$8200|(VRAM_Plane_A_Name_Table/$400),(VDP_control_port).l	; Set scroll A PNT base to $C000
-	bsr.w	sndDriverInput
 
 	startZ80
 
-	bra.w	VintRet
+	bra.w	VintMusic
 ; ---------------------------------------------------------------------------
 
 Vint0_noWater:
@@ -636,10 +640,9 @@ Vint0_noWater:
 	; In the original game, the sprite table is needlessly updated on lag frames.
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
     endif
-	bsr.w	sndDriverInput
 	startZ80
 
-	bra.w	VintRet
+	bra.w	VintMusic
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ; This subroutine copies the H scroll table buffer (in main RAM) to the H scroll
@@ -665,7 +668,9 @@ Vint_PCM:
 	bne.s	+
 
 	stopZ80
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
 	startZ80
 
 +
@@ -698,7 +703,10 @@ Vint_Pause:
 Vint_Level:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(Teleport_timer).w
 	beq.s	.setNormalOrUnderwaterPalette
 	lea	(VDP_control_port).l,a5
@@ -779,7 +787,6 @@ Vint_Level:
 +
 
 	bsr.w	ProcessDMAQueue
-	bsr.w	sndDriverInput
 
 	startZ80
 
@@ -793,7 +800,8 @@ Vint_Level:
 	cmpi.b	#$5C,(Hint_counter_reserve+1).w
 	bhs.s	Do_Updates
 	move.b	#1,(Do_Updates_in_H_int).w
-	rts
+	addq.l	#4,sp
+	bra.w	VintRet
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to run a demo for an amount of time
@@ -818,8 +826,10 @@ Do_Updates:
 Vint_Pause_specialStage:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
-	jsr	(sndDriverInput).l
+	startZ802
+
 	tst.b	(SS_Last_Alternate_HorizScroll_Buf).w
 	beq.s	loc_84A
 
@@ -837,7 +847,10 @@ loc_86E:
 Vint_S2SS:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	bsr.w	SSSet_VScroll
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
@@ -897,7 +910,6 @@ SS_PNTA_Transfer_Table:	offsetTable
 	eori.b	#1,(SS_Alternate_PNT).w	; Toggle flag
 +
 	bsr.w	ProcessDMAQueue
-	jsr	(sndDriverInput).l
 
 	startZ80
 
@@ -1005,7 +1017,10 @@ Vint_CtrlDMA:
 Vint_TitleCard:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(Water_fullscreen_flag).w
 	bne.s	loc_BB2
 
@@ -1045,7 +1060,6 @@ loc_BD6:
 +
 	bsr.w	ProcessDMAQueue
 	jsr	(DrawLevelTitleCard).l
-	jsr	(sndDriverInput).l
 
 	startZ80
 
@@ -1074,14 +1088,15 @@ Vint_Fade:
 Vint_Ending:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
 	dma68kToVDP Horiz_Scroll_Buf,VRAM_Horiz_Scroll_Table,VRAM_Horiz_Scroll_Table_Size,VRAM
 
 	bsr.w	ProcessDMAQueue
-	bsr.w	sndDriverInput
 	movem.l	(Camera_RAM).w,d0-d7
 	movem.l	d0-d7,(Camera_RAM_copy).w
 	movem.l	(Scroll_flags).w,d0-d3
@@ -1129,14 +1144,15 @@ off_D3C:	offsetTable
 Vint_Menu:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
 
 	dma68kToVDP Normal_palette,$0000,palette_line_size*4,CRAM
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
 	dma68kToVDP Horiz_Scroll_Buf,VRAM_Horiz_Scroll_Table,VRAM_Horiz_Scroll_Table_Size,VRAM
 
 	bsr.w	ProcessDMAQueue
-	bsr.w	sndDriverInput
 
 	startZ80
 
@@ -1153,7 +1169,10 @@ Vint_Menu:
 Do_ControllerPal:
 	stopZ80
 
+	stopZ802
 	bsr.w	ReadJoypads
+	startZ802
+
 	tst.b	(Water_fullscreen_flag).w
 	bne.s	loc_EDA
 
@@ -1167,8 +1186,6 @@ loc_EDA:
 loc_EFE:
 	dma68kToVDP Sprite_Table,VRAM_Sprite_Attribute_Table,VRAM_Sprite_Attribute_Table_Size,VRAM
 	dma68kToVDP Horiz_Scroll_Buf,VRAM_Horiz_Scroll_Table,VRAM_Horiz_Scroll_Table_Size,VRAM
-
-	bsr.w	sndDriverInput
 
 	startZ80
 
@@ -1264,73 +1281,6 @@ loc_1072:
 	movem.l	(sp)+,d0-a6
 	rte
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Input our music/sound selection to the sound driver.
-
-sndDriverInput:
-	lea	(Sound_Queue&$00FFFFFF).l,a0
-	lea	(Z80_RAM+zAbsVar).l,a1 ; $A01B80
-
-	cmpi.b	#$80,zVar.QueueToPlay(a1)	; If this (zReadyFlag) isn't $80, the driver is processing a previous sound request.
-	bne.s	.doSFX	; So we'll wait until at least the next frame before putting anything in there.
-
-	; If there's something in the first music queue slot, then play it.
-	_move.b	SoundQueue.Music0(a0),d0
-	beq.s	.checkMusic2
-	_clr.b	SoundQueue.Music0(a0)
-	bra.s	.playMusic
-; ---------------------------------------------------------------------------
-; loc_10A4:
-.checkMusic2:
-	; If there's something in the second music queue slot, then play it.
-	move.b	SoundQueue.Music1(a0),d0
-	beq.s	.doSFX
-	clr.b	SoundQueue.Music1(a0)
-; loc_10AE:
-.playMusic:
-	; If this is 'MusID_Pause' or 'MusID_Unpause', then this isn't a real
-	; sound ID, and it shouldn't be passed to the driver. Instead, it
-	; should be used here to manually set the driver's pause flag.
-	move.b	d0,d1
-	subi.b	#MusID_Pause,d1
-	bcs.s	.isNotPauseCommand
-	addi.b	#$7F,d1
-	move.b	d1,zVar.StopMusic(a1)
-	bra.s	.doSFX
-; ---------------------------------------------------------------------------
-; loc_10C0:
-.isNotPauseCommand:
-	; Send the music's sound ID to the driver.
-	move.b	d0,zVar.QueueToPlay(a1)
-; loc_10C4:
-.doSFX:
-	; Process the SFX queue.
-    if fixBugs
-	moveq	#3-1,d1
-    else
-	; This is too high: there is only room for three bytes in the
-	; driver's queue. This causes the first byte of 'VoiceTblPtr' to be
-	; overwritten.
-	moveq	#4-1,d1
-    endif
-
-.loop:
-	; If there's no sound queued, skip this slot.
-	move.b	SoundQueue.SFX0(a0,d1.w),d0
-	beq.s	.skip
-	; If this slot in the driver's queue is occupied, skip this slot.
-	tst.b	zVar.Queue0(a1,d1.w)
-	bne.s	.skip
-	; Remove the sound from this queue, and put it in the driver's queue.
-	clr.b	SoundQueue.SFX0(a0,d1.w)
-	move.b	d0,zVar.Queue0(a1,d1.w)
-
-.skip:
-	dbf	d1,.loop
-
-	rts
-; End of function sndDriverInput
-
 	jmpTos JmpTo_LoadTilesAsYouMove,JmpTo_SegaScr_VInt
 
 
@@ -1344,10 +1294,12 @@ sndDriverInput:
 ; sub_10EC:
 JoypadInit:
 	stopZ80
+	stopZ802
 	moveq	#$40,d0
 	move.b	d0,(HW_Port_1_Control).l	; init port 1 (joypad 1)
 	move.b	d0,(HW_Port_2_Control).l	; init port 2 (joypad 2)
 	move.b	d0,(HW_Expansion_Control).l	; init port 3 (expansion/extra)
+	startZ802
 	startZ80
 	rts
 ; End of function JoypadInit
@@ -1483,83 +1435,11 @@ ClearScreen:
 	rts
 ; End of function ClearScreen
 
+; ---------------------------------------------------------------------------
+; Clone Driver - Functions Subroutine
+; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
-; JumpTo load the sound driver
-; sub_130A:
-JmpTo_SoundDriverLoad ; JmpTo
-	nop
-	jmp	(SoundDriverLoad).l
-; End of function JmpTo_SoundDriverLoad
-
-; ===========================================================================
-; unused mostly-leftover subroutine to load the sound driver
-; SoundDriverLoadS1:
-	move.w	#$100,(Z80_Bus_Request).l ; stop the Z80
-	move.w	#$100,(Z80_Reset).l ; reset the Z80
-	lea	(Z80_RAM).l,a1
-	move.b	#$F3,(a1)+	; di
-	move.b	#$F3,(a1)+	; di
-	move.b	#$C3,(a1)+	; jp
-	move.b	#0,(a1)+	; jp address low byte
-	move.b	#0,(a1)+	; jp address high byte
-	move.w	#0,(Z80_Reset).l
-	nop
-	nop
-	nop
-	nop
-	move.w	#$100,(Z80_Reset).l ; reset the Z80
-	move.w	#0,(Z80_Bus_Request).l ; start the Z80
-	rts
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Despite the name, this can actually be used for playing sounds.
-; The original source code called this 'bgmset'.
-; sub_135E:
-PlayMusic:
-	tst.b	(Sound_Queue.Music0).w
-	bne.s	+
-	move.b	d0,(Sound_Queue.Music0).w
-	rts
-+
-	move.b	d0,(Sound_Queue.Music1).w
-	rts
-; End of function PlayMusic
-
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Despite the name, this can actually be used for playing music.
-; The original source code called this 'sfxset'.
-; sub_1370
-PlaySound:
-	; Curiously, none of these functions write to 'Sound_Queue.Queue2'...
-	move.b	d0,(Sound_Queue.SFX0).w
-	rts
-; End of function PlaySound
-
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Despite the name, this can actually be used for playing music.
-; Unfortunately, the original name for this is not known.
-; sub_1376: PlaySoundStereo:
-PlaySound2:
-	move.b	d0,(Sound_Queue.SFX1).w
-	rts
-; End of function PlaySound2
-
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Play a sound if the source is on-screen.
-; sub_137C:
-PlaySoundLocal:
-	_btst	#render_flags.on_screen,render_flags(a0)
-	_beq.s	.return
-	move.b	d0,(Sound_Queue.SFX0).w
-
-.return:
-	rts
-; End of function PlaySoundLocal
+		include "sound/engine/Functions.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to pause the game
@@ -1587,10 +1467,10 @@ PauseGame:
 	move.b	(Ctrl_1_Press).w,d0 ; is Start button pressed?
 	or.b	(Ctrl_2_Press).w,d0 ; (either player)
 	andi.b	#button_start_mask,d0
-	beq.s	Pause_DoNothing	; if not, branch
+	beq.w	Pause_DoNothing	; if not, branch
 +
 	move.w	#1,(Game_paused).w	; freeze time
-	move.b	#MusID_Pause,(Sound_Queue.Music0).w	; pause music
+	SMPS_PauseMusic	; pause music
 ; loc_13B2:
 Pause_Loop:
 	move.b	#VintID_Pause,(Vint_routine).w
@@ -1617,7 +1497,7 @@ Pause_ChkStart:
 	beq.s	Pause_Loop	; if not, branch
 ; loc_13F2:
 Pause_Resume:
-	move.b	#MusID_Unpause,(Sound_Queue.Music0).w	; unpause the music
+	SMPS_UnpauseMusic	; unpause the music
 ; loc_13F8:
 Unpause:
 	move.w	#0,(Game_paused).w	; unpause the game
@@ -1628,7 +1508,7 @@ Pause_DoNothing:
 ; loc_1400:
 Pause_SlowMo:
 	move.w	#1,(Game_paused).w
-	move.b	#MusID_Unpause,(Sound_Queue.Music0).w
+	SMPS_UnpauseMusic
 	rts
 ; End of function PauseGame
 
@@ -4183,8 +4063,8 @@ Sega_WaitPalette:
 	; sound queue only has room for one sound per frame. Some custom
 	; sound drivers don't have this limitation, however, and the sound
 	; will indeed play twice in those.
-	move.b	#SndID_SegaSound,d0
-	bsr.w	PlaySound	; play "SEGA" sound
+	move.b	#MusID_SegaSound,d0
+	bsr.w	PlayMusic	; play "SEGA" sound
     endif
 	move.b	#VintID_SEGA,(Vint_routine).w
 	bsr.w	WaitForVint
@@ -4201,6 +4081,13 @@ Sega_WaitEnd:
 	beq.s	Sega_WaitEnd		; if not, branch
 ; loc_395E:
 Sega_GotoTitle:
+	move.b	#MusID_Stop,d0
+	bsr.w	PlayMusic	; stop "SEGA" sound
+
+	; wait stop SEGA sound
+	move.b	#VintID_Title,(Vint_routine).w
+	bsr.w	WaitForVint
+
 	clr.w	(SegaScr_PalDone_Flag).w
 	clr.w	(SegaScr_VInt_Subrout).w
 	move.b	#GameModeID_TitleScreen,(Game_Mode).w	; => TitleScreen
@@ -4528,7 +4415,7 @@ TitleScreen_Loop:
 	move.l	#5000,(Next_Extra_life_score_2P).w
 
 	move.b	#MusID_FadeOut,d0 ; prepare to stop music (fade out)
-	bsr.w	PlaySound
+	bsr.w	PlayMusic
 
 	moveq	#0,d0
 	move.b	(Title_screen_option).w,d0
@@ -4583,7 +4470,7 @@ TitleScreen_ChoseOptions:
 ; loc_3D2E:
 TitleScreen_Demo:
 	move.b	#MusID_FadeOut,d0
-	bsr.w	PlaySound
+	bsr.w	PlayMusic
 
 	move.w	(Demo_number).w,d0
 	andi.w	#7,d0
@@ -4759,7 +4646,7 @@ Level:
 	tst.w	(Demo_mode_flag).w	; test the old flag for the credits demos (now unused)
 	bmi.s	+
 	move.b	#MusID_FadeOut,d0
-	bsr.w	PlaySound	; fade out music
+	bsr.w	PlayMusic	; fade out music
 +
 	bsr.w	ClearPLC
 	bsr.w	Pal_FadeToBlack
@@ -6789,7 +6676,7 @@ SpecialStage:
 	move.b	#1,(Update_HUD_score).w
 	move.b	#1,(Update_Bonus_score).w
 	move.w	#MusID_EndLevel,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 
 	clearRAM Object_Display_Lists,Object_Display_Lists_End
 	clearRAM Object_RAM,Object_RAM_End
@@ -6822,7 +6709,7 @@ loc_540C:
 
 ; loc_541A:
 SpecialStage_Unpause:
-	move.b	#MusID_Unpause,(Sound_Queue.Music0).w
+	SMPS_UnpauseMusic
 	move.b	#VintID_Level,(Vint_routine).w
 	bra.w	WaitForVint
 
@@ -12211,7 +12098,7 @@ OptionScreen_Controls:
 	btst	#button_A,d0
 	beq.s	+
 	addi.b	#$10,d2
-	andi.b	#$7F,d2
+	andi.b	#$FF,d2
     else
 	; This code appears to have been carelessly created from a copy of the
 	; above block of code. It makes no sense to advance by $10 on options
@@ -12233,7 +12120,7 @@ OptionScreen_Controls:
 	andi.w	#button_B_mask|button_C_mask,d0
 	beq.s	+	; rts
 	move.w	(Sound_test_sound).w,d0
-	addi.w	#$80,d0
+;	addi.w	#$80,d0
 	jsrto	JmpTo_PlayMusic
 	lea	(level_select_cheat).l,a0
 	lea	(continues_cheat).l,a2
@@ -12250,7 +12137,7 @@ OptionScreen_Controls:
 OptionScreen_Choices:
 	dc.l (3-1)<<24|(Player_option&$FFFFFF)
 	dc.l (2-1)<<24|(Two_player_items&$FFFFFF)
-	dc.l ($80-1)<<24|(Sound_test_sound&$FFFFFF)
+	dc.l ($100-1)<<24|(Sound_test_sound&$FFFFFF)
 
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -12577,7 +12464,7 @@ LevelSelect_StartZone:
 	move.l	#5000,(Next_Extra_life_score).w
 	move.l	#5000,(Next_Extra_life_score_2P).w
 	move.b	#MusID_FadeOut,d0
-	jsrto	JmpTo_PlaySound
+	jsrto	JmpTo_PlayMusic
 	moveq	#0,d0
 	move.w	d0,(Two_player_mode_copy).w
 	move.w	d0,(Two_player_mode).w
@@ -12629,13 +12516,13 @@ LevSelControls_CheckLR:
 	beq.s	+
 	subq.b	#1,d0
 	bcc.s	+
-	moveq	#$7F,d0
+	moveq	#-1,d0
 
 +
 	btst	#button_right,d1
 	beq.s	+
 	addq.b	#1,d0
-	cmpi.w	#$80,d0
+	cmpi.w	#$100,d0
 	blo.s	+
 	moveq	#0,d0
 
@@ -12643,14 +12530,14 @@ LevSelControls_CheckLR:
 	btst	#button_A,d1
 	beq.s	+
 	addi.b	#$10,d0
-	andi.b	#$7F,d0
+	andi.b	#$FF,d0
 
 +
 	move.w	d0,(Sound_test_sound).w
 	andi.w	#button_B_mask|button_C_mask,d1
 	beq.s	+	; rts
 	move.w	(Sound_test_sound).w,d0
-	addi.w	#$80,d0
+;	addi.w	#$80,d0
 	jsrto	JmpTo_PlayMusic
 	lea	(debug_cheat).l,a0
 	lea	(super_sonic_cheat).l,a2
@@ -12908,7 +12795,7 @@ CheckCheats:	; This is called from 2 places: the options screen and the level se
 	; Remove "&$7F" to fix the bug.
 	move.b	#SndID_ContinueJingle&$7F,d0	; Play the continue jingle
     endif
-	jsrto	JmpTo_PlayMusic
+	jsrto	JmpTo_PlaySound
 	bra.s	++
 ; ===========================================================================
 +
@@ -20822,7 +20709,7 @@ LevEvents_HTZ_Routine2_Continue:
 	move.b	d0,(HTZ_Terrain_Direction).w
 	subq.b	#2,(Dynamic_Resize_Routine).w ; => LevEvents_HTZ_Routine1
 	move.w	#MusID_StopSFX,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 	rts
 ; ---------------------------------------------------------------------------
 .exit_right:
@@ -20833,7 +20720,7 @@ LevEvents_HTZ_Routine2_Continue:
 	move.b	d0,(HTZ_Terrain_Direction).w
 	addq.b	#2,(Dynamic_Resize_Routine).w ; => LevEvents_HTZ_Routine3
 	move.w	#MusID_StopSFX,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 	rts
 
 ; ===========================================================================
@@ -21066,7 +20953,7 @@ LevEvents_HTZ2_Routine2_Continue:
 	move.b	d0,(HTZ_Terrain_Direction).w
 	subq.b	#2,(Dynamic_Resize_Routine).w ; => LevEvents_HTZ2_Routine1
 	move.w	#MusID_StopSFX,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 	rts
 ; ---------------------------------------------------------------------------
 .exit_right:
@@ -21077,7 +20964,7 @@ LevEvents_HTZ2_Routine2_Continue:
 	move.b	d0,(HTZ_Terrain_Direction).w
 	addq.b	#2,(Dynamic_Resize_Routine).w ; => LevEvents_HTZ2_Routine3
 	move.w	#MusID_StopSFX,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 	rts
 ; ===========================================================================
 ; loc_ED96:
@@ -21174,7 +21061,7 @@ LevEvents_HTZ2_Routine4_Continue:
 	move.b	d0,(HTZ_Terrain_Direction).w
 	subq.b	#6,(Dynamic_Resize_Routine).w ; => LevEvents_HTZ2_Routine1
 	move.w	#MusID_StopSFX,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 	rts
 ; ===========================================================================
 .exit_right:
@@ -21185,7 +21072,7 @@ LevEvents_HTZ2_Routine4_Continue:
 	move.b	d0,(HTZ_Terrain_Direction).w
 	addq.b	#2,(Dynamic_Resize_Routine).w ; => LevEvents_HTZ2_Routine5
 	move.w	#MusID_StopSFX,d0
-	jsr	(PlaySound).l
+	jsr	(PlayMusic).l
 	rts
 ; ===========================================================================
 ; loc_EEF8:
@@ -24928,9 +24815,7 @@ CollectRing_1P:
 	addq.w	#1,(Ring_count).w	; add 1 to the ring count
 +
 	ori.b	#1,(Update_HUD_rings).w	; set flag to update the ring counter in the HUD
-	move.w	#SndID_Ring,d0		; prepare to play the ring sound
     else
-	move.w	#SndID_Ring,d0		; prepare to play the ring sound
 	cmpi.w	#999,(Ring_count).w	; does the player 1 have 999 or more rings?
 	bhs.s	JmpTo_PlaySound2	; if yes, play the ring sound
 	addq.w	#1,(Ring_count).w	; add 1 to the ring count
@@ -24949,9 +24834,12 @@ CollectRing_1P:
 	addq.b	#1,(Life_count).w	; add 1 to the life count
 	addq.b	#1,(Update_HUD_lives).w	; add 1 to the displayed life count
 	move.w	#MusID_ExtraLife,d0	; prepare to play the extra life jingle
+	jmp	(PlayMusic).l
+; ===========================================================================
 
 JmpTo_PlaySound2 ; JmpTo
-	jmp	(PlaySound2).l
+	move.w	#SndID_Ring,d0		; prepare to play the ring sound
+	jmp	(PlaySound).l
 ; ===========================================================================
 	rts
 ; ===========================================================================
@@ -24970,7 +24858,6 @@ CollectRing_Tails:
 
 ; CollectRing_2P:
 	ori.b	#1,(Update_HUD_rings_2P).w	; set flag to update the ring counter in the second player's HUD
-	move.w	#SndID_Ring,d0			; prepare to play the ring sound
 	cmpi.w	#100,(Ring_count_2P).w		; does the player 2 have less than 100 rings?
 	blo.s	JmpTo2_PlaySound2		; if yes, play the ring sound
 	bset	#1,(Extra_life_flags_2P).w	; test and set the flag for the first extra life
@@ -24983,9 +24870,12 @@ CollectRing_Tails:
 	addq.b	#1,(Life_count_2P).w		; add 1 to the life count
 	addq.b	#1,(Update_HUD_lives_2P).w	; add 1 to the displayed life count
 	move.w	#MusID_ExtraLife,d0		; prepare to play the extra life jingle
+	jmp	(PlayMusic).l
+; ===========================================================================
 
 JmpTo2_PlaySound2 ; JmpTo
-	jmp	(PlaySound2).l
+	move.w	#SndID_Ring,d0			; prepare to play the ring sound
+	jmp	(PlaySound).l
 ; End of function CollectRing
 
 ; ===========================================================================
@@ -25755,7 +25645,7 @@ super_ring:
 	beq.s	ChkPlayer_1up	; branch, if not yet set
 +
 	move.w	#SndID_Ring,d0
-	jmp	(PlayMusic).l
+	jmp	(PlaySound).l
 ; ---------------------------------------------------------------------------
 ;loc_129D4:
 ChkPlayer_1up:
@@ -25798,7 +25688,7 @@ shield_monitor:
 	addq.w	#1,(a2)
 	bset	#status_secondary.shield,status_secondary(a1)	; give shield status
 	move.w	#SndID_Shield,d0
-	jsr	(PlayMusic).l
+	jsr	(PlaySound).l
 	tst.b	parent+1(a0)
 	bne.s	+
 	move.b	#ObjID_Shield,(Sonic_Shield+id).w ; load Obj38 (shield) at $FFFFD180
@@ -25994,7 +25884,7 @@ swap_loop_objects:
 	move.b	#$40,(Teleport_timer).w
 	move.b	#1,(Teleport_flag).w
 	move.w	#SndID_Teleport,d0
-	jmp	(PlayMusic).l
+	jmp	(PlaySound).l
 ; ===========================================================================
 
 ; This macro is used to make the table neater and perform some validation.
@@ -34499,7 +34389,7 @@ Obj0D_Main:
 	cmpi.w	#$20,d0
 	bhs.s	loc_192D6
 	move.w	#SndID_Signpost,d0
-	jsr	(PlayMusic).l	; play spinning sound
+	jsr	(PlaySound).l	; play spinning sound
 	clr.b	(Update_HUD_timer).w
 	move.w	#(0<<8)|(1<<0),anim(a0)
 	move.w	#0,obj0D_spinframe(a0)
@@ -34539,7 +34429,7 @@ loc_192D6:
 	cmpi.w	#$20,d0
 	bhs.s	loc_19350
 	move.w	#SndID_Signpost,d0
-	jsr	(PlayMusic).l
+	jsr	(PlaySound).l
 	clr.b	(Update_HUD_timer_2P).w
 	move.w	#(0<<8)|(1<<0),anim(a0)
 	move.w	#0,obj0D_spinframe(a0)
@@ -78114,8 +78004,8 @@ loc_3A3DA:
 loc_3A3E6:
 	addq.b	#2,routine(a0)
 	st.b	(SegaScr_PalDone_Flag).w
-	move.b	#SndID_SegaSound,d0
-	jsrto	JmpTo12_PlaySound
+	move.b	#MusID_SegaSound,d0
+	jsrto	JmpTo12_PlayMusic
 
 return_3A3F6:
 	rts
@@ -90899,214 +90789,6 @@ Objects_Null:
 ; --------------------------------------------------------------------------------------
 	align $1000
 
-
-
-
-; ---------------------------------------------------------------------------
-; Subroutine to load the sound driver
-; ---------------------------------------------------------------------------
-; sub_EC000:
-SoundDriverLoad:
-	move	sr,-(sp)
-	movem.l	d0-a6,-(sp)
-	move	#$2700,sr
-	lea	(Z80_Bus_Request).l,a3
-	lea	(Z80_Reset).l,a2
-	moveq	#0,d2
-	move.w	#$100,d1
-	move.w	d1,(a3)	; get Z80 bus
-	move.w	d1,(a2)	; release Z80 reset (was held high by console on startup)
--	btst	d2,(a3)
-	bne.s	-	; wait until the 68000 has the bus
-	jsr	DecompressSoundDriver(pc)
-	btst	#0,(VDP_control_port+1).l	; check video mode
-	sne	(Z80_RAM+zPalModeByte).l	; set if PAL
-	move.w	d2,(a2)	; hold Z80 reset
-	move.w	d2,(a3)	; release Z80 bus
-	moveq	#signextendB($E6),d0
--	dbf	d0,-	; wait for 2,314 cycles
-	move.w	d1,(a2)	; release Z80 reset
-	movem.l	(sp)+,d0-a6
-	move	(sp)+,sr
-	rts
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-; Handles the decompression of the sound driver (Saxman compression, an LZSS variant)
-; https://segaretro.org/Saxman_compression
-
-; a4 == start of decompressed data (used for dictionary match offsets)
-; a5 == current address of end of decompressed data
-; a6 == current address in compressed sound driver
-; d3 == length of match minus 1
-; d4 == offset into decompressed data of dictionary match
-; d5 == number of bytes decompressed so far
-; d6 == descriptor field
-; d7 == bytes left to decompress
-
-; Interestingly, this appears to be a direct translation of the Z80 version in the sound driver
-; (or maybe the Z80 version is a direct translation of this...)
-
-; loc_EC04A:
-DecompressSoundDriver:
-	lea	Snd_Driver(pc),a6
-; WARNING: the build script needs editing if you rename this label
-movewZ80CompSize:	move.w	#Snd_Driver_End-Snd_Driver,d7 ; patched (by build.lua) after compression since the exact size can't be known beforehand
-	moveq	#0,d6	; The decompressor knows it's run out of descriptor bits when it starts reading 0's in bit 8
-	lea	(Z80_RAM).l,a5
-	moveq	#0,d5
-	lea	(Z80_RAM).l,a4
-; loc_EC062:
-SaxDec_Loop:
-	lsr.w	#1,d6	; Next descriptor bit
-	btst	#8,d6	; Check if we've run out of bits
-	bne.s	+	; (lsr 'shifts in' 0's)
-	jsr	SaxDec_GetByte(pc)
-	move.b	d0,d6
-	ori.w	#$FF00,d6	; These set bits will disappear from the high byte as the register is shifted
-+
-	btst	#0,d6
-	beq.s	SaxDec_ReadCompressed
-
-; SaxDec_ReadUncompressed:
-	jsr	SaxDec_GetByte(pc)
-	move.b	d0,(a5)+
-	addq.w	#1,d5
-	bra.w	SaxDec_Loop
-; ---------------------------------------------------------------------------
-; loc_EC086:
-SaxDec_ReadCompressed:
-	jsr	SaxDec_GetByte(pc)
-	moveq	#0,d4
-	move.b	d0,d4
-	jsr	SaxDec_GetByte(pc)
-	move.b	d0,d3
-	andi.w	#$F,d3
-	addq.w	#2,d3	; d3 is the length of the match minus 1
-	andi.w	#$F0,d0
-	lsl.w	#4,d0
-	add.w	d0,d4
-	addi.w	#$12,d4
-	andi.w	#$FFF,d4	; d4 is the offset into the current $1000-byte window
-	; This part is a little tricky. You see, d4 currently contains the low three nibbles of an offset into the decompressed data,
-	; where the dictionary match lies. The way the high nibble is decided is first by taking it from d5 - the offset of the end
-	; of the decompressed data so far. Then, we see if the resulting offset in d4 is somehow higher than d5.
-	; If it is, then it's invalid... *unless* you subtract $1000 from it, in which case it refers to data in the previous $1000 block of bytes.
-	; This is all just a really gimmicky way of having an offset with a range of $1000 bytes from the end of the decompressed data.
-	; If, however, we cannot subtract $1000 because that would put the pointer before the start of the decompressed data, then
-	; this is actually a 'zero-fill' match, which encodes a series of zeroes.
-	move.w	d5,d0
-	andi.w	#$F000,d0
-	add.w	d0,d4
-	cmp.w	d4,d5
-	bhs.s	SaxDec_IsDictionaryReference
-	subi.w	#$1000,d4
-	bcc.s	SaxDec_IsDictionaryReference
-
-; SaxDec_IsSequenceOfZeroes:
-	add.w	d3,d5
-	addq.w	#1,d5
-
--	move.b	#0,(a5)+
-	dbf	d3,-
-
-	bra.w	SaxDec_Loop
-; ---------------------------------------------------------------------------
-; loc_EC0CC:
-SaxDec_IsDictionaryReference:
-	add.w	d3,d5
-	addq.w	#1,d5
-
--	move.b	(a4,d4.w),(a5)+
-	addq.w	#1,d4
-	dbf	d3,-
-
-	bra.w	SaxDec_Loop
-; End of function DecompressSoundDriver
-
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
-; sub_EC0DE:
-SaxDec_GetByte:
-	move.b	(a6)+,d0
-	subq.w	#1,d7	; Decrement remaining number of bytes
-	bne.s	+
-	addq.w	#4,sp	; Exit the decompressor by meddling with the stack
-+
-	rts
-; End of function SaxDec_GetByte
-
-; ===========================================================================
-; ---------------------------------------------------------------------------
-; S2 sound driver (Sound driver compression (slightly modified Saxman))
-; ---------------------------------------------------------------------------
-; loc_EC0E8:
-Snd_Driver:
-	save
-	include "s2.sounddriver.asm" ; CPU Z80
-	restore
-	padding off
-	!org (Snd_Driver+Size_of_Snd_driver_guess) ; don't worry; I know what I'm doing
-
-
-; loc_ED04C:
-Snd_Driver_End:
-
-
-
-
-; ---------------------------------------------------------------------------
-; Filler (free space)
-; ---------------------------------------------------------------------------
-	; the DAC data has to line up with the end of the bank.
-
-	; actually it only has to fit within one bank, but we'll line it up to the end anyway
-	; because the padding gives the sound driver some room to grow
-	cnop -Size_of_DAC_samples, $8000
-
-; ---------------------------------------------------------------------------
-; DAC samples
-; ---------------------------------------------------------------------------
-
-; loc_ED100:
-SndDAC_Start:
-
-SndDAC_Kick:	include	"sound/DAC/generated/Kick.inc"
-SndDAC_Snare:	include	"sound/DAC/generated/Snare.inc"
-SndDAC_Timpani:	include	"sound/DAC/generated/Timpani.inc"
-SndDAC_Tom:	include	"sound/DAC/generated/Tom.inc"
-SndDAC_Clap:	include	"sound/DAC/generated/Clap.inc"
-SndDAC_Scratch:	include	"sound/DAC/generated/Scratch.inc"
-SndDAC_Bongo:	include	"sound/DAC/generated/Bongo.inc"
-
-SndDAC_End
-
-	if SndDAC_End - SndDAC_Start > $8000
-		fatal "DAC samples must fit within $8000 bytes, but you have $\{SndDAC_End-SndDAC_Start } bytes of DAC samples."
-	endif
-	if SndDAC_End - SndDAC_Start > Size_of_DAC_samples
-		fatal "Size_of_DAC_samples = $\{Size_of_DAC_samples}, but you have $\{SndDAC_End-SndDAC_Start} bytes of DAC samples."
-	endif
-
-; ---------------------------------------------------------------------------
-; Music pointers
-; ---------------------------------------------------------------------------
-
-music_ptr macro DATA
-DATA.pointer label *
-	rom_ptr_z80	DATA
-    endm
-
-; loc_F0000:
-MusicPoint1:	startBank
-		music_ptr	Mus_Continue
-
-Mus_Continue:	include	"sound/music/generated/9C - Continue.inc"
-
-	finishBank
-
-	align $20
-
 ; --------------------------------------------------------------------------------------
 ; EHZ/HTZ Assets
 ; --------------------------------------------------------------------------------------
@@ -91151,7 +90833,7 @@ ArtNem_MtzLavaBubble:		BINCLUDE	"art/nemesis/Lava bubble from MTZ.nem"
 ArtNem_LavaCup:			BINCLUDE	"art/nemesis/Lava cup from MTZ.nem"
 	even
 ArtNem_BoltEnd_Rope:		BINCLUDE	"art/nemesis/Bolt end and rope from MTZ.nem"
-	even	
+	even
 ArtNem_MtzCog:			BINCLUDE	"art/nemesis/Small cog from MTZ.nem"
 	even
 ArtNem_MtzSpinTubeFlash:	BINCLUDE	"art/nemesis/Spin tube flash from MTZ.nem"
@@ -91171,279 +90853,41 @@ ArtNem_VinePulley:		BINCLUDE	"art/nemesis/Vine that lowers from MCZ.nem"
 ArtNem_MCZGateLog:		BINCLUDE	"art/nemesis/Drawbridge logs from MCZ.nem"
 	even
 
-; ----------------------------------------------------------------------------------
-; Filler (free space)
-; ----------------------------------------------------------------------------------
-	; the PCM data has to line up with the end of the bank.
-	cnop -Size_of_SEGA_sound, $8000
+; ---------------------------------------------------------------------------
+; Vladikcomper's Mega PCM 2.0 - DAC Sound Driver
+; ---------------------------------------------------------------------------
 
-; -------------------------------------------------------------------------------
-; Sega Intro Sound
-; 8-bit unsigned raw audio at 16Khz
-; -------------------------------------------------------------------------------
-; loc_F1E8C:
-Snd_Sega:	include	"sound/PCM/generated/SEGA.inc"
+		include "sound/engine/MegaPCM.asm"
 
-	if Snd_Sega.size > $8000
-		fatal "Sega sound must fit within $8000 bytes, but you have a $\{Snd_Sega.size} byte Sega sound."
+; ---------------------------------------------------------------------------
+; Clone sound driver subroutines
+; ---------------------------------------------------------------------------
+
+		include "sound/engine/Sonic 2 Clone Driver v2.asm"
+
+	if MSUMode
+
+; ---------------------------------------------------------------------------
+; MegaCD Driver
+; ---------------------------------------------------------------------------
+
+		include "sound/MSU/MSU.asm"
+
 	endif
-	if Snd_Sega.size > Size_of_SEGA_sound
-		fatal "Size_of_SEGA_sound = $\{Size_of_SEGA_sound}, but you have a $\{Snd_Sega.size} byte Sega sound."
-	endif
 
-; ------------------------------------------------------------------------------
-; Music pointers
-; ------------------------------------------------------------------------------
-; loc_F8000:
-MusicPoint2:	startBank
-		music_ptr	Mus_CNZ_2P
-		music_ptr	Mus_EHZ
-		music_ptr	Mus_MTZ
-		music_ptr	Mus_CNZ
-		music_ptr	Mus_MCZ
-		music_ptr	Mus_MCZ_2P
-		music_ptr	Mus_ARZ
-		music_ptr	Mus_DEZ
-		music_ptr	Mus_SpecStage
-		music_ptr	Mus_Options
-		music_ptr	Mus_Ending
-		music_ptr	Mus_EndBoss
-		music_ptr	Mus_CPZ
-		music_ptr	Mus_Boss
-		music_ptr	Mus_SCZ
-		music_ptr	Mus_OOZ
-		music_ptr	Mus_WFZ
-		music_ptr	Mus_EHZ_2P
-		music_ptr	Mus_2PResult
-		music_ptr	Mus_SuperSonic
-		music_ptr	Mus_HTZ
-		music_ptr	Mus_ExtraLife
-		music_ptr	Mus_Title
-		music_ptr	Mus_EndLevel
-		music_ptr	Mus_GameOver
-		music_ptr	Mus_Invincible
-		music_ptr	Mus_Emerald
-		music_ptr	Mus_HPZ
-		music_ptr	Mus_Drowning
-		music_ptr	Mus_Credits
+; --------------------------------------------------------------
+; Debugging modules
+; --------------------------------------------------------------
 
-; loc_F803C:
-Mus_HPZ:	include	"sound/music/generated/90 - HPZ.inc"
-Mus_Drowning:	include	"sound/music/generated/9F - Drowning.inc"
-Mus_Invincible:	include	"sound/music/generated/97 - Invincible.inc"
-Mus_CNZ_2P:	include	"sound/music/generated/88 - CNZ 2P.inc"
-Mus_EHZ:	include	"sound/music/generated/82 - EHZ.inc"
-Mus_MTZ:	include	"sound/music/generated/85 - MTZ.inc"
-Mus_CNZ:	include	"sound/music/generated/89 - CNZ.inc"
-Mus_MCZ:	include	"sound/music/generated/8B - MCZ.inc"
-Mus_MCZ_2P:	include	"sound/music/generated/83 - MCZ 2P.inc"
-Mus_ARZ:	include	"sound/music/generated/87 - ARZ.inc"
-Mus_DEZ:	include	"sound/music/generated/8A - DEZ.inc"
-Mus_SpecStage:	include	"sound/music/generated/92 - Special Stage.inc"
-Mus_Options:	include	"sound/music/generated/91 - Options.inc"
-Mus_Ending:	include	"sound/music/generated/95 - Ending.inc"
-Mus_EndBoss:	include	"sound/music/generated/94 - Final Boss.inc"
-Mus_CPZ:	include	"sound/music/generated/8E - CPZ.inc"
-Mus_Boss:	include	"sound/music/generated/93 - Boss.inc"
-Mus_SCZ:	include	"sound/music/generated/8D - SCZ.inc"
-Mus_OOZ:	include	"sound/music/generated/84 - OOZ.inc"
-Mus_WFZ:	include	"sound/music/generated/8F - WFZ.inc"
-Mus_EHZ_2P:	include	"sound/music/generated/8C - EHZ 2P.inc"
-Mus_2PResult:	include	"sound/music/generated/81 - 2 Player Menu.inc"
-Mus_SuperSonic:	include	"sound/music/generated/96 - Super Sonic.inc"
-Mus_HTZ:	include	"sound/music/generated/86 - HTZ.inc"
-Mus_Title:	include	"sound/music/generated/99 - Title Screen.inc"
-Mus_EndLevel:	include	"sound/music/generated/9A - End of Act.inc"
-Mus_ExtraLife:	include	"sound/music/generated/98 - Extra Life.inc"
-Mus_GameOver:	include	"sound/music/generated/9B - Game Over.inc"
-Mus_Emerald:	include	"sound/music/generated/9D - Got Emerald.inc"
-Mus_Credits:	include	"sound/music/generated/9E - Credits.inc"
+		include "ErrorHandler/ErrorHandler.asm"
 
-; ------------------------------------------------------------------------------------------
-; Sound effect pointers
-; ------------------------------------------------------------------------------------------
-; WARNING the sound driver treats certain sounds specially
-; going by the ID of the sound.
-; SndID_Ring, SndID_RingLeft, SndID_Gloop, SndID_SpindashRev
-; are referenced by the sound driver directly.
-; If needed you can change this in s2.sounddriver.asm
-
-
-; NOTE: the exact order of this list determines the priority of each sound, since it determines the sound's SndID.
-;       a sound can get dropped if a higher-priority sound is already playing.
-;       see zSFXPriority for the priority allocation itself.
-; loc_FEE91: SoundPoint:
-SoundIndex:
-SndPtr_Jump:		rom_ptr_z80	Sound20	; jumping sound
-SndPtr_Checkpoint:	rom_ptr_z80	Sound21	; checkpoint ding-dong sound
-SndPtr_SpikeSwitch:	rom_ptr_z80	Sound22	; spike switch sound
-SndPtr_Hurt:		rom_ptr_z80	Sound23	; hurt sound
-SndPtr_Skidding:	rom_ptr_z80	Sound24	; skidding sound
-SndPtr_MissileDissolve:	rom_ptr_z80	Sound25	; missile dissolve sound from Sonic 1 (unused)
-SndPtr_HurtBySpikes:	rom_ptr_z80	Sound26	; spiky impalement sound
-SndPtr_Sparkle:		rom_ptr_z80	Sound27	; sparkling sound
-SndPtr_Beep:		rom_ptr_z80	Sound28	; short beep
-SndPtr_Bwoop:		rom_ptr_z80	Sound29	; bwoop (unused)
-SndPtr_Splash:		rom_ptr_z80	Sound2A	; splash sound
-SndPtr_Swish:		rom_ptr_z80	Sound2B	; swish
-SndPtr_BossHit:		rom_ptr_z80	Sound2C	; boss hit
-SndPtr_InhalingBubble:	rom_ptr_z80	Sound2D	; inhaling a bubble
-SndPtr_ArrowFiring:
-SndPtr_LavaBall:	rom_ptr_z80	Sound2E	; arrow firing
-SndPtr_Shield:		rom_ptr_z80	Sound2F	; shield sound
-SndPtr_LaserBeam:	rom_ptr_z80	Sound30	; laser beam
-SndPtr_Zap:		rom_ptr_z80	Sound31	; zap (unused)
-SndPtr_Drown:		rom_ptr_z80	Sound32	; drownage
-SndPtr_FireBurn:	rom_ptr_z80	Sound33	; fire + burn
-SndPtr_Bumper:		rom_ptr_z80	Sound34	; bumper bing
-SndPtr_Ring:
-SndPtr_RingRight:	rom_ptr_z80	Sound35	; ring sound
-SndPtr_SpikesMove:	rom_ptr_z80	Sound36
-SndPtr_Rumbling:	rom_ptr_z80	Sound37	; rumbling
-			rom_ptr_z80	Sound38	; (unused)
-SndPtr_Smash:		rom_ptr_z80	Sound39	; smash/breaking
-			rom_ptr_z80	Sound3A	; nondescript ding (unused)
-SndPtr_DoorSlam:	rom_ptr_z80	Sound3B	; door slamming shut
-SndPtr_SpindashRelease:	rom_ptr_z80	Sound3C	; spindash unleashed
-SndPtr_Hammer:		rom_ptr_z80	Sound3D	; slide-thunk
-SndPtr_Roll:		rom_ptr_z80	Sound3E	; rolling sound
-SndPtr_ContinueJingle:	rom_ptr_z80	Sound3F	; got continue
-SndPtr_CasinoBonus:	rom_ptr_z80	Sound40	; short bonus ding
-SndPtr_Explosion:	rom_ptr_z80	Sound41	; badnik bust
-SndPtr_WaterWarning:	rom_ptr_z80	Sound42	; warning ding-ding
-SndPtr_EnterGiantRing:	rom_ptr_z80	Sound43	; special stage ring flash (mostly unused)
-SndPtr_BossExplosion:	rom_ptr_z80	Sound44	; thunk
-SndPtr_TallyEnd:	rom_ptr_z80	Sound45	; cha-ching
-SndPtr_RingSpill:	rom_ptr_z80	Sound46	; losing rings
-			rom_ptr_z80	Sound47	; chain pull chink-chink (unused)
-SndPtr_Flamethrower:	rom_ptr_z80	Sound48	; flamethrower
-SndPtr_Bonus:		rom_ptr_z80	Sound49	; bonus pwoieeew (mostly unused)
-SndPtr_SpecStageEntry:	rom_ptr_z80	Sound4A	; special stage entry
-SndPtr_SlowSmash:	rom_ptr_z80	Sound4B	; slower smash/crumble
-SndPtr_Spring:		rom_ptr_z80	Sound4C	; spring boing
-SndPtr_Blip:		rom_ptr_z80	Sound4D	; selection blip
-SndPtr_RingLeft:	rom_ptr_z80	Sound4E	; another ring sound (only plays in the left speaker?)
-SndPtr_Signpost:	rom_ptr_z80	Sound4F	; signpost spin sound
-SndPtr_CNZBossZap:	rom_ptr_z80	Sound50	; mosquito zapper
-			rom_ptr_z80	Sound51	; (unused)
-			rom_ptr_z80	Sound52	; (unused)
-SndPtr_Signpost2P:	rom_ptr_z80	Sound53
-SndPtr_OOZLidPop:	rom_ptr_z80	Sound54	; OOZ lid pop sound
-SndPtr_SlidingSpike:	rom_ptr_z80	Sound55
-SndPtr_CNZElevator:	rom_ptr_z80	Sound56
-SndPtr_PlatformKnock:	rom_ptr_z80	Sound57
-SndPtr_BonusBumper:	rom_ptr_z80	Sound58	; CNZ bonusy bumper sound
-SndPtr_LargeBumper:	rom_ptr_z80	Sound59	; CNZ baaang bumper sound
-SndPtr_Gloop:		rom_ptr_z80	Sound5A	; CNZ gloop / water droplet sound
-SndPtr_PreArrowFiring:	rom_ptr_z80	Sound5B
-SndPtr_Fire:		rom_ptr_z80	Sound5C
-SndPtr_ArrowStick:	rom_ptr_z80	Sound5D	; chain clink
-SndPtr_Helicopter:
-SndPtr_WingFortress:	rom_ptr_z80	Sound5E	; helicopter
-SndPtr_SuperTransform:	rom_ptr_z80	Sound5F
-SndPtr_SpindashRev:	rom_ptr_z80	Sound60	; spindash charge
-SndPtr_Rumbling2:	rom_ptr_z80	Sound61	; rumbling
-SndPtr_CNZLaunch:	rom_ptr_z80	Sound62
-SndPtr_Flipper:		rom_ptr_z80	Sound63	; CNZ blooing bumper
-SndPtr_HTZLiftClick:	rom_ptr_z80	Sound64	; HTZ track click sound
-SndPtr_Leaves:		rom_ptr_z80	Sound65	; kicking up leaves sound
-SndPtr_MegaMackDrop:	rom_ptr_z80	Sound66	; leaf splash?
-SndPtr_DrawbridgeMove:	rom_ptr_z80	Sound67
-SndPtr_QuickDoorSlam:	rom_ptr_z80	Sound68	; door slamming quickly (unused)
-SndPtr_DrawbridgeDown:	rom_ptr_z80	Sound69
-SndPtr_LaserBurst:	rom_ptr_z80	Sound6A	; robotic laser burst
-SndPtr_Scatter:
-SndPtr_LaserFloor:	rom_ptr_z80	Sound6B	; scatter
-SndPtr_Teleport:	rom_ptr_z80	Sound6C
-SndPtr_Error:		rom_ptr_z80	Sound6D	; error sound
-SndPtr_MechaSonicBuzz:	rom_ptr_z80	Sound6E	; Silver Sonic buzz saw
-SndPtr_LargeLaser:	rom_ptr_z80	Sound6F
-SndPtr_OilSlide:	rom_ptr_z80	Sound70
-SndPtr__End:
-
-Sound20:	include "sound/sfx/A0 - Jump.asm"
-Sound21:	include "sound/sfx/A1 - Checkpoint.asm"
-Sound22:	include "sound/sfx/A2 - Spike Switch.asm"
-Sound23:	include "sound/sfx/A3 - Hurt.asm"
-Sound24:	include "sound/sfx/A4 - Skidding.asm"
-Sound25:	include "sound/sfx/A5 - Block Push.asm"
-Sound26:	include "sound/sfx/A6 - Hurt by Spikes.asm"
-Sound27:	include "sound/sfx/A7 - Sparkle.asm"
-Sound28:	include "sound/sfx/A8 - Beep.asm"
-Sound29:	include "sound/sfx/A9 - Special Stage Item (Unused).asm"
-Sound2A:	include "sound/sfx/AA - Splash.asm"
-Sound2B:	include "sound/sfx/AB - Swish.asm"
-Sound2C:	include "sound/sfx/AC - Boss Hit.asm"
-Sound2D:	include "sound/sfx/AD - Inhaling Bubble.asm"
-Sound2E:	include "sound/sfx/AE - Lava Ball.asm"
-Sound2F:	include "sound/sfx/AF - Shield.asm"
-Sound30:	include "sound/sfx/B0 - Laser Beam.asm"
-Sound31:	include "sound/sfx/B1 - Electricity (Unused).asm"
-Sound32:	include "sound/sfx/B2 - Drown.asm"
-Sound33:	include "sound/sfx/B3 - Fire Burn.asm"
-Sound34:	include "sound/sfx/B4 - Bumper.asm"
-Sound35:	include "sound/sfx/B5 - Ring.asm"
-Sound36:	include "sound/sfx/B6 - Spikes Move.asm"
-Sound37:	include "sound/sfx/B7 - Rumbling.asm"
-Sound38:	include "sound/sfx/B8 - Unknown (Unused).asm"
-Sound39:	include "sound/sfx/B9 - Smash.asm"
-Sound3A:	include "sound/sfx/BA - Special Stage Glass (Unused).asm"
-Sound3B:	include "sound/sfx/BB - Door Slam.asm"
-Sound3C:	include "sound/sfx/BC - Spin Dash Release.asm"
-Sound3D:	include "sound/sfx/BD - Hammer.asm"
-Sound3E:	include "sound/sfx/BE - Roll.asm"
-Sound3F:	include "sound/sfx/BF - Continue Jingle.asm"
-Sound40:	include "sound/sfx/C0 - Casino Bonus.asm"
-Sound41:	include "sound/sfx/C1 - Explosion.asm"
-Sound42:	include "sound/sfx/C2 - Water Warning.asm"
-Sound43:	include "sound/sfx/C3 - Enter Giant Ring (Unused).asm"
-Sound44:	include "sound/sfx/C4 - Boss Explosion.asm"
-Sound45:	include "sound/sfx/C5 - Tally End.asm"
-Sound46:	include "sound/sfx/C6 - Ring Spill.asm"
-Sound47:	include "sound/sfx/C7 - Chain Rise (Unused).asm"
-Sound48:	include "sound/sfx/C8 - Flamethrower.asm"
-Sound49:	include "sound/sfx/C9 - Hidden Bonus (Unused).asm"
-Sound4A:	include "sound/sfx/CA - Special Stage Entry.asm"
-Sound4B:	include "sound/sfx/CB - Slow Smash.asm"
-Sound4C:	include "sound/sfx/CC - Spring.asm"
-Sound4D:	include "sound/sfx/CD - Switch.asm"
-Sound4E:	include "sound/sfx/CE - Ring Left Speaker.asm"
-Sound4F:	include "sound/sfx/CF - Signpost.asm"
-Sound50:	include "sound/sfx/D0 - CNZ Boss Zap.asm"
-Sound51:	include "sound/sfx/D1 - Unknown (Unused).asm"
-Sound52:	include "sound/sfx/D2 - Unknown (Unused).asm"
-Sound53:	include "sound/sfx/D3 - Signpost 2P.asm"
-Sound54:	include "sound/sfx/D4 - OOZ Lid Pop.asm"
-Sound55:	include "sound/sfx/D5 - Sliding Spike.asm"
-Sound56:	include "sound/sfx/D6 - CNZ Elevator.asm"
-Sound57:	include "sound/sfx/D7 - Platform Knock.asm"
-Sound58:	include "sound/sfx/D8 - Bonus Bumper.asm"
-Sound59:	include "sound/sfx/D9 - Large Bumper.asm"
-Sound5A:	include "sound/sfx/DA - Gloop.asm"
-Sound5B:	include "sound/sfx/DB - Pre-Arrow Firing.asm"
-Sound5C:	include "sound/sfx/DC - Fire.asm"
-Sound5D:	include "sound/sfx/DD - Arrow Stick.asm"
-Sound5E:	include "sound/sfx/DE - Helicopter.asm"
-Sound5F:	include "sound/sfx/DF - Super Transform.asm"
-Sound60:	include "sound/sfx/E0 - Spin Dash Rev.asm"
-Sound61:	include "sound/sfx/E1 - Rumbling 2.asm"
-Sound62:	include "sound/sfx/E2 - CNZ Launch.asm"
-Sound63:	include "sound/sfx/E3 - Flipper.asm"
-Sound64:	include "sound/sfx/E4 - HTZ Lift Click.asm"
-Sound65:	include "sound/sfx/E5 - Leaves.asm"
-Sound66:	include "sound/sfx/E6 - Mega Mack Drop.asm"
-Sound67:	include "sound/sfx/E7 - Drawbridge Move.asm"
-Sound68:	include "sound/sfx/E8 - Quick Door Slam.asm"
-Sound69:	include "sound/sfx/E9 - Drawbridge Down.asm"
-Sound6A:	include "sound/sfx/EA - Laser Burst.asm"
-Sound6B:	include "sound/sfx/EB - Scatter.asm"
-Sound6C:	include "sound/sfx/EC - Teleport.asm"
-Sound6D:	include "sound/sfx/ED - Error.asm"
-Sound6E:	include "sound/sfx/EE - Mecha Sonic Buzz.asm"
-Sound6F:	include "sound/sfx/EF - Large Laser.asm"
-Sound70:	include "sound/sfx/F0 - Oil Slide.asm"
-
-	finishBank
+; ---------------------------------------------------------------
+; WARNING!
+;	DO NOT put any data from now on! DO NOT use ROM padding!
+;	Symbol data should be appended here after ROM is compiled
+;	by ConvSym utility, otherwise debugger modules won't be able
+;	to resolve symbol names.
+; ---------------------------------------------------------------
 
 ; end of 'ROM'
 	if padToPowerOfTwo && (*-StartOfRom)&(*-StartOfRom-1)
@@ -91459,5 +90903,5 @@ EndOfRom:
 		message "ROM size is $\{EndOfRom-StartOfRom} bytes (\{(EndOfRom-StartOfRom)/1024.0} KiB). About $\{paddingSoFar} bytes are padding. "
 	endif
 	; share these symbols externally (WARNING: don't rename, move or remove these labels!)
-	shared movewZ80CompSize
+
 	END

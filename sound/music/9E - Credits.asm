@@ -403,8 +403,8 @@ Credits_Call06:
 	smpsReturn
 
 Credits_Call16:
-	dc.b	nD5, $06, nC5, nD5, $12, nF5, nD5, $0C, nE5, nRst, $06
-	dc.b	$12, nG5, $0C, nF5, $06, nRst, nC6, nA5, $3C, nRst, $06
+	dc.b	nD5, $06, nC5, nD5, $12, nF5, nD5, $0C, nE5, nRst, $06, nRst
+	dc.b	$12, nG5, $0C, nF5, $06, nRst, nC6, nA5, $3C, nRst, $06, nRst
 	dc.b	$0C, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
 	smpsReturn
 
@@ -954,7 +954,7 @@ Credits_Loop3E:
 	smpsLoop            $00, $0A, Credits_Loop3E
 	dc.b	nRst, $60
 	smpsAlterPitch      $F4
-	smpsPSGAlterVolS2   $FE
+	smpsPSGAlterVol     $FE
 	smpsPSGvoice        fTone_01
 	smpsCall            Credits_Call28
 	dc.b	nA3, nD4, $06, nG3, $0C, nA3, nA3, nD4, $06, nRst, nD4, nFs3
@@ -1013,9 +1013,6 @@ Credits_Loop41:
 	smpsAlterPitch      $30
 	smpsPSGAlterVol     $FC
 	smpsJump            Credits_Jump00
-
-	; Unreachable
-	smpsStop
 
 Credits_Call27:
 	dc.b	nRst, $0C, nC5, $06, $12, $18, nG5, $06, $12, $0C, nRst, nF5
@@ -1087,15 +1084,12 @@ Credits_Loop39:
 	smpsLoop            $00, $0A, Credits_Loop39
 	dc.b	nRst, $60
 	smpsPSGvoice        $00
-    if FixMusicAndSFXDataBugs
-	smpsAlterPitch      $C
-    else
 	; This is wrong: it should convert from EHZ 2P's PSG2 transpose ($D0)
 	; to CNZ's PSG2 transpose ($DC), but instead of adding $C, it subtracts
 	; $C, causing the note to be too low and underflow the sound driver's
 	; frequency table, producing invalid notes.
-	smpsAlterPitch      -$C
-    endif
+	;smpsAlterPitch      $F4
+	smpsAlterPitch      $0C ; Correct command
 	smpsPSGAlterVol     $FF
 	smpsAlterPitch      $E8
 	dc.b	nRst, $60
@@ -1110,11 +1104,9 @@ Credits_Loop39:
 	smpsPSGAlterVol     $FC
 	dc.b	nRst, nC4, nRst, nC4, nRst, nC4, $18, $08, nC4, $04
 	smpsPSGAlterVol     $01
-    if ~~FixMusicAndSFXDataBugs
 	; If the above bug is fixed, then this line needs removing (the track
 	; will already be two octaves higher).
-	smpsAlterPitch      $C*2
-    endif
+;	smpsAlterPitch      $18 ; Removed
 	smpsPSGvoice        fTone_05
 	smpsAlterNote       $01
 	dc.b	nRst, $60, nRst, nRst, nRst, nRst, nRst, nRst, $0C, nE6, $06, nRst
@@ -1348,13 +1340,6 @@ Credits_Call02:
 	dc.b	dKick, $08, $0C, $04, dSnare, $0C, dKick, $08, $0C, dSnare, $04, dKick
 	dc.b	$0C, dSnare, dKick, dKick, $08, $0C, $04, dSnare, $0C, dKick, $08, $0C
 	dc.b	dSnare, $04, dKick, $0C, dSnare, dSnare, $08, $04
-	smpsReturn
-
-; Unused
-;Credits_CallUnk:
-	dc.b	dKick, $06, nRst, $03, dKick, dKick, $06, dSnare, dKick, $06, nRst, $03
-	dc.b	dKick, dKick, $06, dSnare, $03, dSnare, dKick, $06, nRst, $03, dKick, dKick
-	dc.b	$06, dSnare
 	smpsReturn
 
 Credits_Voices:

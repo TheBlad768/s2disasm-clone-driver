@@ -224,7 +224,7 @@ OOZ_PSG1:
 
 OOZ_Jump02:
 	smpsPSGAlterVol     $03
-	dc.b	nRst, $60, $60
+	dc.b	nRst, $60, nRst, $60
 	smpsPSGvoice        $00
 	smpsPSGAlterVol     $FD
 	smpsCall            OOZ_Call04
@@ -243,10 +243,10 @@ OOZ_Jump01:
 	smpsPSGAlterVol     $03
 	dc.b	nRst, $18, nRst, $03, nRst, $01
 	smpsPSGvoice        fTone_0C
-	smpsPSGAlterVolS2   $FE
+	smpsPSGAlterVol     $FE
 	dc.b	nC6, $01, nD6, $02, nEb6, $02, nFs6, $2D, nAb6, $01, nG6, $0B
 	dc.b	nEb6, $01, nD6, $30, smpsNoAttack, $30, smpsNoAttack, $05
-	smpsPSGAlterVolS2   $02
+	smpsPSGAlterVol     $02
 	smpsPSGvoice        $00
 	smpsPSGAlterVol     $FD
 	smpsCall            OOZ_Call04

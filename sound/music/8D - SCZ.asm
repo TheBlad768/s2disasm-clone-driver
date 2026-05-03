@@ -119,10 +119,6 @@ SCZ_Jump01:
 	dc.b	nB4, $0C, nG4, nA4, nG4, $06, nA4
 	smpsCall            SCZ_Call04
 	dc.b	nB4, $30
-    if FixMusicAndSFXDataBugs
-	; This voice is set at SCZ_FM1, but never again.
-	smpsSetvoice        $06
-    endif
 	smpsJump            SCZ_Jump01
 
 SCZ_Call04:
@@ -238,12 +234,12 @@ SCZ_PSG1:
 SCZ_Loop05:
 	dc.b	nG4, $30, nFs4
 	smpsLoop            $00, $04, SCZ_Loop05
-	smpsPSGAlterVolS2   $FE
+	smpsPSGAlterVol     $FE
 	dc.b	nG4, $03, $03, $06, nRst, $24, nFs4, $03, $03, $06, nRst, $24
 	dc.b	nE4, $03, $03, $06, nRst, $24, nD4, $03, $03, $06, nRst, $18
 	dc.b	nE4, $06, nFs4, nG4, $03, $03, $06, nRst, $24, nFs4, $03, $03
 	dc.b	$06, nRst, $24, nE4, $03, $03, $06, nRst, $24, nFs4, $30
-	smpsPSGAlterVolS2   $02
+	smpsPSGAlterVol     $02
 	smpsJump            SCZ_Loop05
 
 ; PSG2 Data
@@ -257,12 +253,12 @@ SCZ_Jump05:
 	dc.b	nD6, nD6, nD6, $27, nRst, $12, nD6, $03, nD6, nD6, $06, nD6
 	dc.b	nD6, nD6, nD6, $30, nRst, $12, nD6, $03, nD6, nD6, $06, nD6
 	dc.b	nD6, nD6, nD6, $03, nD6, nD6, nD6, $27
-	smpsPSGAlterVolS2   $01
+	smpsPSGAlterVol     $01
 	dc.b	nB4, $03, $03, $06, nRst, $24, nA4, $03, $03, $06, nRst, $24
 	dc.b	nG4, $03, $03, $06, nRst, $24, nFs4, $03, $03, $06, nRst, $18
 	dc.b	nG4, $06, nA4, nB4, $03, $03, $06, nRst, $24, nA4, $03, $03
 	dc.b	$06, nRst, $24, nG4, $03, $03, $06, nRst, $24, nD4, $30
-	smpsPSGAlterVolS2   $FF
+	smpsPSGAlterVol     $FF
 	smpsJump            SCZ_Jump05
 
 ; PSG3 Data
