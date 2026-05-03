@@ -84,42 +84,46 @@ clearRAM macro startaddr,endaddr
 
 ; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
 stopZ80 macro
+
+	if OptimiseStopZ80=0
 	move.w	#$100,(Z80_Bus_Request).l ; stop the Z80
 .loop:	btst	#0,(Z80_Bus_Request).l
 	bne.s	.loop ; loop until it says it's stopped
+	endif
+
     endm
 
 ; tells the Z80 to start again
 startZ80 macro
+
+	if OptimiseStopZ80=0
 	move.w	#0,(Z80_Bus_Request).l    ; start the Z80
+	endif
+
+    endm
+
+; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
+stopZ802 macro
+
+	if OptimiseStopZ80=2
+	move.w	#$100,(Z80_Bus_Request).l ; stop the Z80
+.loop:	btst	#0,(Z80_Bus_Request).l
+	bne.s	.loop ; loop until it says it's stopped
+	endif
+
+    endm
+
+; tells the Z80 to start again
+startZ802 macro
+
+	if OptimiseStopZ80=2
+	move.w	#0,(Z80_Bus_Request).l    ; start the Z80
+	endif
+
     endm
 
 ; function to make a little-endian 16-bit pointer for the Z80 sound driver
 z80_ptr function x,(x)<<8&$FF00|(x)>>8&$7F|$80
-
-; macro to declare a little-endian 16-bit pointer for the Z80 sound driver
-rom_ptr_z80 macro addr
-	dc.w z80_ptr(addr)
-    endm
-
-; aligns the start of a bank, and detects when the bank's contents is too large
-; can also print the amount of free space in a bank with DebugSoundbanks set
-startBank macro {INTLABEL}
-	align	$8000
-__LABEL__ label *
-soundBankStart := __LABEL__
-soundBankName := "__LABEL__"
-    endm
-
-DebugSoundbanks := 0
-
-finishBank macro
-	if * > soundBankStart + $8000
-		fatal "soundBank \{soundBankName} must fit in $8000 bytes but was $\{*-soundBankStart}. Try moving something to the other bank."
-	elseif (DebugSoundbanks<>0)&&(MOMPASS=1)
-		message "soundBank \{soundBankName} has $\{$8000+soundBankStart-*} bytes free at end."
-	endif
-    endm
 
 ; macro to replace the destination with its absolute value
 abs macro destination
@@ -318,3 +322,36 @@ btns_mask := btns_mask|button_start_mask
   endm
 	dc.b	btns_mask,duration-1
  endm
+
+; ---------------------------------------------------------------------------
+; disable interrupts
+; ---------------------------------------------------------------------------
+
+disableInts macro
+	move	#$2700,sr
+    endm
+
+; ---------------------------------------------------------------------------
+; enable interrupts
+; ---------------------------------------------------------------------------
+
+enableInts macro
+	move	#$2300,sr
+    endm
+
+; ---------------------------------------------------------------------------
+; disable interrupts
+; ---------------------------------------------------------------------------
+
+disableIntsSave macro
+	move.w	sr,-(sp)		; Save current interrupt mask
+	disableInts			; Mask off interrupts
+    endm
+
+; ---------------------------------------------------------------------------
+; enable interrupts
+; ---------------------------------------------------------------------------
+
+enableIntsSave macro
+	move.w	(sp)+,sr		; Restore interrupts to previous state
+    endm
