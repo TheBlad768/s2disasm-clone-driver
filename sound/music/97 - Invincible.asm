@@ -122,9 +122,6 @@ Invincible_Loop00:
 	dc.b	$04, dSnare, dSnare, dSnare, dSnare, dSnare, dSnare, dSnare, dSnare, dSnare, dSnare, dSnare
 	smpsJump            Invincible_Loop00
 
-	; Unreachable
-	smpsStop
-
 Invincible_Voices:
 ;	Voice $00
 ;	$3A

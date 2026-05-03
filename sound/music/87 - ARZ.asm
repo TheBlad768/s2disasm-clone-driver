@@ -15,7 +15,7 @@ ARZ_Header:
 	smpsHeaderPSG       ARZ_PSG3,	$00, $01, $00, fTone_02
 
 ARZ_Call04:
-	dc.b	nD5, $06, nC5, nD5, $12, nF5, nD5, $0C, nE5, nRst, $06
+	dc.b	nD5, $06, nC5, nD5, $12, nF5, nD5, $0C, nE5, nRst, $06, nRst
 	dc.b	$12, nG5, $0C, nF5, $06, nRst, nC6, nA5, $30, smpsNoAttack, $0C
 	smpsReturn
 
@@ -83,7 +83,7 @@ ARZ_Jump03:
 	dc.b	nRst, $06, nA5, nRst, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
 	dc.b	nG5, nFs5, $30, smpsNoAttack, $18, nRst, $0C
 	smpsCall            ARZ_Call04
-	dc.b	nRst, $06, $0C, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
+	dc.b	nRst, $06, nRst, $0C, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
 	dc.b	nCs5, nD5, $30, smpsNoAttack, $18, nRst, $18
 	smpsSetvoice        $01
 	smpsAlterVol        $F8
@@ -113,7 +113,7 @@ ARZ_Jump02:
 	dc.b	nRst, $06, nA5, nRst, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
 	dc.b	nG5, nFs5, $30, smpsNoAttack, $18, nRst, $0C
 	smpsCall            ARZ_Call04
-	dc.b	nRst, $06, $0C, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
+	dc.b	nRst, $06, nRst, $0C, nBb5, $12, nA5, nG5, $06, nF5, nE5, $18
 	dc.b	nCs5, nD5, $30, smpsNoAttack, $18, nRst, $18
 	smpsSetvoice        $01
 	smpsAlterVol        $F8
@@ -276,9 +276,6 @@ ARZ_Loop0A:
 	dc.b	nRst, $2A
 	smpsJump            ARZ_Jump05
 
-	; Unreachable
-	smpsStop
-
 ; PSG2 Data
 ARZ_PSG2:
 	dc.b	nRst, $0C
@@ -297,7 +294,7 @@ ARZ_Loop08:
 	dc.b	$06, nA5, nRst, nG5, nA5, nRst, nG5, nRst, nA5, $0C, nG5, $06
 	dc.b	nA5, $12, nG5, $02, nF5, nE5, nD5, nC5, nB4
 	smpsPSGvoice        fTone_01
-	smpsPSGAlterVolS2   $FE
+	smpsPSGAlterVol     $FE
 	dc.b	nD5, $0C, nG5, $06, nBb4, $0C, nD5, nD5, $06, nRst, nF5, nRst
 	dc.b	nG4, nD5, $0C, nD5, $06, nRst, nC5, $0C, nF5, $06, nA4, $0C
 	dc.b	nC5, nC5, $06, nRst, nF5, nRst, nA4, nC5, $0C, nC5, $06, nRst
@@ -310,7 +307,7 @@ ARZ_Loop08:
 	dc.b	nE5, $06, nA4, $0C, nBb4, nCs5, nE5, $06, nRst, nA4, nA4, $0C
 	dc.b	nA4, $06, nRst, nE5, nE5, nE5, nRst, $12, nE5, $06, nE5, nE5
 	dc.b	nRst, $2A
-	smpsPSGAlterVolS2   $02
+	smpsPSGAlterVol     $02
 	smpsJump            ARZ_Loop08
 
 ; PSG3 Data

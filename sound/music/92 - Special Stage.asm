@@ -47,7 +47,7 @@ SpecStg_FM2:
 	smpsAlterPitch      $0C
 	smpsAlterVol        $F6
 	smpsPan             panCenter, $00
-	dc.b	nRst, $30, $30
+	dc.b	nRst, $30, nRst, $30
 	smpsSetvoice        $05
 	dc.b	nG4, $12, nAb4, nA4, $0C, nBb4, $12, nB4, nC5, $0C, nB4, $12
 	dc.b	nC5, nCs5, $0C, nC5, $12, nCs5, nD5, $0C
@@ -127,9 +127,9 @@ SpecStg_Loop07:
 	dc.b	$12, nAb4, $06, nRst, $18
 	smpsLoop            $01, $02, SpecStg_Loop07
 	smpsPan             panCenter, $00
-	dc.b	nRst, $30, nRst, nRst, nRst, nAb4, $06, nRst, $0C, $06, nRst
-	dc.b	$0C, nAb4, $06, nRst, nAb4, nRst, $0C, $06, nRst, $0C, nAb4
-	dc.b	$06, nRst, nAb4, nRst, $0C, $06, nRst, $0C, nAb4, $06, nRst
+	dc.b	nRst, $30, nRst, nRst, nRst, nAb4, $06, nRst, $0C, nRst, $06, nRst
+	dc.b	$0C, nAb4, $06, nRst, nAb4, nRst, $0C, nRst, $06, nRst, $0C, nAb4
+	dc.b	$06, nRst, nAb4, nRst, $0C, nRst, $06, nRst, $0C, nAb4, $06, nRst
 	dc.b	nAb4, nRst, $2A
 	smpsLoop            $00, $02, SpecStg_Loop08
 	smpsPan             panLeft, $00
@@ -167,9 +167,9 @@ SpecStg_Loop04:
 	dc.b	nE4, $06, nRst, $0C, nE4, $06, nRst, $0C, nE4, $06, nRst, nD4
 	dc.b	$12, nE4, $06, nRst, $18
 	smpsLoop            $01, $02, SpecStg_Loop04
-	dc.b	nRst, $30, nRst, nRst, nRst, nE4, $06, nRst, $0C, $06, nRst
-	dc.b	$0C, nE4, $06, nRst, nE4, nRst, $0C, $06, nRst, $0C, nE4
-	dc.b	$06, nRst, nE4, nRst, $0C, $06, nRst, $0C, nE4, $06, nRst
+	dc.b	nRst, $30, nRst, nRst, nRst, nE4, $06, nRst, $0C, nRst, $06, nRst
+	dc.b	$0C, nE4, $06, nRst, nE4, nRst, $0C, nRst, $06, nRst, $0C, nE4
+	dc.b	$06, nRst, nE4, nRst, $0C, nRst, $06, nRst, $0C, nE4, $06, nRst
 	dc.b	nE4, nRst, $2A
 	smpsLoop            $00, $02, SpecStg_Loop05
 

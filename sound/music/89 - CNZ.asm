@@ -265,9 +265,6 @@ CNZ_Jump05:
 	dc.b	nRst, $30
 	smpsJump            CNZ_Jump05
 
-	; Unreachable
-	smpsStop
-
 ; PSG3 Data
 CNZ_PSG3:
 	smpsPSGform         $E7
